@@ -1,0 +1,30 @@
+! Special
+
+#define FOREGROUND	#C0C5CE
+#define BACKGROUND	#2B303B
+#define CURSORCOLOR	#2B303B
+#define SCROLLBAR	  FALSE
+
+#define COLOR0		  #2BC03B
+#define COLOR8		  #65737E
+
+#define COLOR1		  #BF616E
+#define COLOR9		  #BF616E
+
+#define COLOR2		  #A3BE8C
+#define COLOR10		  #A3BE8C
+
+#define COLOR3		  #EBCB8B
+#define COLOR11		  #EBCB8B
+
+#define COLOR4		  #8FA1B3
+#define COLOR12		  #8FA1B3
+
+#define COLOR5		  #B48EAD
+#define COLOR13		  #B48EAD
+
+#define COLOR6		  #96B5B4
+#define COLOR14		  #96B5B4
+
+#define COLOR7		  #C0C5CE
+#define COLOR15		  #EFF1F5
