@@ -1,0 +1,18 @@
+# set mode fullscreen
+map <F1> toggle_fullscreen
+map <F2> adjust_window best-fit
+map <F3> adjust_window width
+
+map <C-i> zoom in
+map <C-o> zoom out
+map j scroll down
+map k scroll up
+map <S-j> navigate next
+map <S-k> navigate previous
+map <C-S-j> navigate_index next
+map <C-S-k> navigate_index previous
+map <C-S-Left> rotate-ccw 
+map <C-S-Right> rotate-cw
+
+font monospace normal 12
+# adjust-open widht
