@@ -1,0 +1,74 @@
+
+# EXPORTS
+\: "${MKSH:=$(\\builtin whence -p mksh)}${MKSH:=/bin/mksh}"
+\\builtin export MKSH
+\\builtin export SHELL=$MKSH MANWIDTH=80 LESSHISTFILE=-
+\\builtin export HISTSIZE=5000 HISTFILE=~/.mksh_history
+
+
+# PROMPTS
+#\\builtin export PS1='${PWD} \[$(tput setaf 60)\]~ $(echo -e "\U1555")\[$(tput sgr0)\]' PS2=">" PS3=">>"
+\\builtin export PS1='$(basename ${PWD})$(tput setaf 50) ~$(echo -e "\U1557")$(tput sgr0) ' PS2=">" PS3=">>"
+
+# ALIAS
+\\builtin alias bing='/usr/bin/git --git-dir=$HOME/git/scripts --work-tree=$HOME'
+\\builtin alias config='/usr/bin/git --git-dir=$HOME/git/config-files --work-tree=$HOME/.config'
+\\builtin alias poly='poly' pl='poly --use'
+\\builtin alias ghci='ghci' # -ignore-dot-ghci -flocal-ghci-history -fghci-hist-size=100'
+\\builtin alias ls='ls -F --color='auto'' la='ls -a --color='auto'' ll='ls -lG --color='auto'' lo='ls -alo --color='auto''
+\\builtin alias v='nvim' vv='sudo nvim' vw='nview'
+\\builtin alias c='cat' cc='sudo cat'
+\\builtin alias df='df -h' dt='df -hT'
+\\builtin alias lb='lsblk' lba='lsblk -alp' lbb='lsblk -lp'
+\\builtin alias xbps='sudo xbps-install' xrm='sudo xbps-remove'
+\\builtin alias recall='sudo xbps-reconfigure' query='xbps-query'
+
+# BINDINGS
+bind '^A'=beginning-of-line
+bind '^B'=backward-char
+bind '^C'=abort
+bind '^D'=eot-or-delete
+bind '^E'=end-of-line
+bind '^F'=forward-char
+bind '^G'=abort
+bind '^H'=delete-char-backward
+bind '^I'=complete-list
+bind '^J'=newline
+bind '^K'=kill-to-eol
+bind '^L'=clear-screen
+bind '^M'=newline
+bind '^N'=down-history
+bind '^O'=newline-and-next
+bind '^P'=up-history
+bind '^R'=search-history
+bind '^T'=transpose-chars
+bind '^U'=kill-line
+bind '^V'=complete
+bind '^W'=delete-word-backward
+bind '^X'=complete-command
+bind '^Y'=yank
+#=no-op
+#=search-character-forward
+#=delete-char-backward
+#=evaluate-region
+#=complete-file
+#=search-character-backward
+#=set-mark-command
+#=prev-hist-word
+#=beginning-of-history
+#=capitalize-word
+#=downcase-word
+#=upcase-word
+#=prev-hist-word
+#=backward-word
+#=capitalize-word
+#=delete-word-forward
+#=forward-word
+#=goto-history
+#=delete-word-backward
+#=downcase-word
+#=upcase-word
+#=yank-pop
+#=delete-word-backward
+#=exchange-point-and-mark
+#=list-file
