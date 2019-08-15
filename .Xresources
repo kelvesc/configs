@@ -1,0 +1,87 @@
+!#include ".config/xresources/blue.dark"
+!#include ".config/xresources/solid.dark"
+!#include ".config/xresources/chalk.dark"
+!#include ".config/xresources/codeschool.dark"
+!#include ".config/xresources/dracula.dark"
+!#include ".config/xresources/google.dark"
+!#include ".config/xresources/ocean.dark"
+#include ".config/xresources/sol.dark"
+
+! Xft.dpi:              120
+! Xft.antialiasing:     TRUE
+! Xft.rgba:             RGB
+! Xft.hinting:          TRUE
+! Xft.lcdfilter:        lcddefault
+
+!URxvt Specifics
+!Pixelsize is not equal size
+URxvt*cursorColor:	    #1099FF
+!URxvt*font:	          xft:DejavuSerif:pixelsize=16
+!URxvt*letterSpace:	    0
+URxvt*font:	            xft:LinLibertine_RB:pixelsize=16
+URxvt*letterSpace:	    -2
+Urxvt*lineSpace:	      -1
+URxvt*dynamicColors:	  ON
+URxvt.border:           COLOR6
+URxvt.borderless:       TRUE
+URxvt.internalBorder:   3
+!URxvt.depth:            35
+
+! URxvt Scroll Options
+URxvt*saveLines:	      2000
+URxvt*scrollStyle:	    plain
+! Do not scroll with output
+URxvt*scrollWithBuffer: TRUE
+! Scroll in relation to bufer (Shift + PageUP/Down)
+URxvt*scrollTtyOutpt:   FALSE
+! Scroll back to the botton on keypress
+URxvt*scrollTtyKeypress:TRUE
+! disble scrollback buffer when using a pager
+URxvt.secondaryScreen:  1
+URxvt.secondaryScroll:  0
+
+! XTerm Specifics
+xterm*cursorColor:	  #F95533
+xterm*font:		        xft:LinLibertine_aSI:pixelsize=18
+xterm*utf8:		        2
+
+! Global Settings
+*cursorUnderline:     FALSE
+*cursorBlink:		      TRUE
+*foreground:	        FOREGROUND
+*background:	        BACKGROUND
+*cursourColor:	      CURSORCOLOR
+*scrollBar:		        FALSE
+
+! Black
+*color0:	            COLOR0
+*color8:	            COLOR8
+
+! Red
+*color1:	            COLOR1
+*color9:	            COLOR9
+
+! Green
+*color2:	            COLOR2
+*color10:		          COLOR10
+
+! Yellow
+*color3:	            COLOR3
+*color11:	            COLOR11
+
+! Blue
+*color4:	            COLOR4
+*color12:	            COLOR12
+
+! Magenta
+*color5:	            COLOR5
+*color13:	            COLOR13
+
+! Cyan
+*color6:	            COLOR6
+*color14:	            COLOR14
+
+! White
+*color7:	            COLOR7
+*color15:	            COLOR15
+
