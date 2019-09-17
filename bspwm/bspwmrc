@@ -35,8 +35,8 @@ bspc desktop '^3' --layout gapless_monocle
 # Rules
 bspc rule --add Firefox desktop='^3'
 bspc rule --add Zathura	desktop='IV' --one-shot follow=on focus=on state=fullscreen
-bbspc rule --add "screenlock"	desktop='VII' --one-shot follow=on focus=on state=fullscreen
-spc rule --add Conky sticky=on manage=off lower=on
+bspc rule --add "screenlock"	desktop='VII' --one-shot follow=on focus=on state=fullscreen
+bspc rule --add Conky sticky=on manage=off lower=on
 # bspc rule --add Gimp desktop='^8' state=floating follow=on
 # bspc rule --add mplayer2 state=floating
 # bspc rule --add Kupfer.py focus=on

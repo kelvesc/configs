@@ -1,4 +1,3 @@
-
 # EXPORTS
 \: "${MKSH:=$(\\builtin whence -p mksh)}${MKSH:=/bin/mksh}"
 \\builtin export MKSH
