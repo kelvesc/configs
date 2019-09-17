@@ -47,10 +47,11 @@ set splitbelow
 set splitright
 
 " Tab bahavior
-set tabstop=2
+set tabstop=8
+set softtabstop=4
 set smarttab
 set expandtab
-set shiftwidth=2
+set shiftwidth=4
 " Backspace Behavior
 set backspace=indent,eol,start
 
