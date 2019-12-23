@@ -1,3 +1,4 @@
+
 # set mode fullscreen
 map <F1> toggle_fullscreen
 map <F2> adjust_window best-fit
