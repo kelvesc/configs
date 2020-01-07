@@ -146,7 +146,8 @@ super + w
 shift + F9
   reader
 
-#shift + F10
+F10
+    polybar-msg cmd toggle
 #shift + F11
 
 shift + F12
