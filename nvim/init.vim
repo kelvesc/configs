@@ -28,7 +28,7 @@ set autoindent
 set smartindent
 set breakindent
 set clipboard=unnamed
-set gdefault            "Set global as default when substituing
+"set gdefault            "Set global as default when substituing
 
 set modelines=0
 set linebreak           "Break long lines to fit the terminal size
@@ -105,7 +105,11 @@ nnoremap / /\v
 vnoremap / /\v
 "Map Shift-h to lines begining and Shift-l to lines end
 nnoremap H 0
+vnoremap H 0
 nnoremap L $
+vnoremap L $
+"nnoremap <C-left> 0
+"nnoremap <C-right> $
 "Tab places the cursor at matching bracket
 nnoremap <tab> %
 vnoremap <tab> %
