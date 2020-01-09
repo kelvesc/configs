@@ -1,26 +1,40 @@
-# EXPORTS
+# [EXPORTS]
 \: "${MKSH:=$(\\builtin whence -p mksh)}${MKSH:=/bin/mksh}"
 \\builtin export MKSH
 \\builtin export SHELL=$MKSH MANWIDTH=80 LESSHISTFILE=-
 \\builtin export HISTSIZE=5000 HISTFILE=~/.mksh_history
 
 
-# PROMPTS
+# [PROMPTS]
 #\\builtin export PS1='${PWD} \[$(tput setaf 60)\]~ $(echo -e "\U1555")\[$(tput sgr0)\]' PS2=">" PS3=">>"
 \\builtin export PS1='$(basename ${PWD})$(tput setaf 50) ~$(echo -e "\U1557")$(tput sgr0) ' PS2=">" PS3=">>"
 
-# ALIAS
-\\builtin alias bing='/usr/bin/git --git-dir=$HOME/git/scripts --work-tree=$HOME'
-\\builtin alias config='/usr/bin/git --git-dir=$HOME/git/config-files --work-tree=$HOME/.config'
-\\builtin alias poly='poly' pl='poly --use'
-\\builtin alias ghci='ghci' # -ignore-dot-ghci -flocal-ghci-history -fghci-hist-size=100'
-\\builtin alias ls='ls -F --color='auto'' la='ls -a --color='auto'' ll='ls -lG --color='auto'' lo='ls -alo --color='auto''
-\\builtin alias v='nvim' vv='sudo nvim' vw='nview'
-\\builtin alias c='cat' cc='sudo cat'
+# [ALIAS]
+# System
+\\builtin alias ls='ls -F --color='auto''
+\\builtin alias la='ls -a '
+\\builtin alias ll='ls -lG'
+\\builtin alias lo='ls -alo'
+\\builtin alias c='cat' 
+\\builtin alias cc='sudo cat'
 \\builtin alias df='df -h' dt='df -hT'
 \\builtin alias lb='lsblk' lba='lsblk -alp' lbb='lsblk -lp'
-\\builtin alias xbps='sudo xbps-install' xrm='sudo xbps-remove'
-\\builtin alias recall='sudo xbps-reconfigure' query='xbps-query'
+\\builtin alias xbps='sudo xbps-install'
+\\builtin alias xrm='sudo xbps-remove'
+\\builtin alias query='xbps-query'
+#\\builtin alias 
+\\builtin alias recall='sudo xbps-reconfigure'
+# Programming
+\\builtin alias gc='[[ -e $HOME/.config/ ]] && cd $HOME/.config/'
+\\builtin alias ge='[[ -e $HOME/projects/erlang ]] && cd $HOME/projects/erlang'
+\\builtin alias gh='[[ -e $HOME/projects/haskell ]] && cd $HOME/projects/haskell'
+\\builtin alias gp='[[ -e $HOME/projects/python ]] && cd $HOME/projects/python'
+\\builtin alias v='nvim' vv='sudo nvim' vw='nview'
+\\builtin alias ghci='ghci -ignore-dot-ghci -flocal-ghci-history -fghci-hist-size=100'
+\\builtin alias poly='poly' pl='poly --use'
+# Git
+\\builtin alias bing='/usr/bin/git --git-dir=$HOME/git/scripts --work-tree=$HOME'
+\\builtin alias config='/usr/bin/git --git-dir=$HOME/git/configFiles --work-tree=$HOME/.config'
 
 # BINDINGS
 bind '^A'=beginning-of-line
