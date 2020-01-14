@@ -23,7 +23,7 @@ set encoding=utf-8
 set fileencoding=utf-8
 set termencoding=utf-8
 set textwidth=80
-set colorcolumn=80
+set colorcolumn=81
 set autoindent
 set smartindent
 set breakindent
@@ -115,6 +115,8 @@ nnoremap <tab> %
 vnoremap <tab> %
 "Ctrl-s saves the file, in INSERT MODE
 inoremap <C-s> <ESC>:w<CR>
+nnoremap <C-s> <ESC>:w<CR>
+vnoremap <C-s> <ESC>:w<CR>
 "Remaps jj to ESC, in INSERT MODE
 inoremap jj <ESC>
 "Deactivates highlighted search
