@@ -108,8 +108,6 @@ nnoremap H 0
 vnoremap H 0
 nnoremap L $
 vnoremap L $
-"nnoremap <C-left> 0
-"nnoremap <C-right> $
 "Tab places the cursor at matching bracket
 nnoremap <tab> %
 vnoremap <tab> %
@@ -117,6 +115,10 @@ vnoremap <tab> %
 inoremap <C-s> <ESC>:w<CR>
 nnoremap <C-s> <ESC>:w<CR>
 vnoremap <C-s> <ESC>:w<CR>
+"Maps qq to quit
+inoremap qq <ESC>:q<CR>
+nnoremap qq <ESC>:q<CR>
+vnoremap qq <ESC>:q<CR>
 "Remaps jj to ESC, in INSERT MODE
 inoremap jj <ESC>
 "Deactivates highlighted search
