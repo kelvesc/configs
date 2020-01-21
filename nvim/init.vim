@@ -1,7 +1,6 @@
 " NeoVim Configuration
 
 " General
-"let mapleader = "<keyhere>"
 set scrolloff=8
 syntax on
 filetype on
@@ -28,7 +27,6 @@ set autoindent
 set smartindent
 set breakindent
 set clipboard=unnamed
-"set gdefault            "Set global as default when substituing
 
 set modelines=0
 set linebreak           "Break long lines to fit the terminal size
@@ -55,8 +53,10 @@ set incsearch           "Incremental search
 set synmaxcol=80        "Don't search in long lines
 set magic               "For regular expressions
 
-set showmatch           "Show matching bracket
+set showmatch           "Show matching { [ ( ) ] }
+set foldenable          "enable folding
 set foldcolumn=0        "Add a margin to the left
+set foldmethod=manual
 
 set splitbelow          "Horizontal split is below
 set splitright          "Vertical split is right
@@ -72,14 +72,19 @@ autocmd FocusGained,BufEnter * checktime
 "Return to last editing position when opening the file
 "autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
 autocmd BufReadPost * :call ReturnLastPosition()
+autocmd Filetype haskell,vhdl,ada let b:comment_leader = "-- "
+autocmd Filetype c,cpp let b:comment_leader = "// "
+autocmd Filetype sh,make,python let b:comment_leader = "# "
+autocmd Filetype erlang let b:comment_leader = "% "
+autocmd BufEnter * call <silent> Comment()
 
 "Functions
-function! WordProcessorMode() abort
+function! SpellCheck() abort
     setlocal spell spelllang=en_us
     setlocal noexpandtab
 endfunction
 
-function! CancelWordProcessorMode() abort
+function! CancelSpellCheck() abort
     setlocal nospell
     setlocal expandtab
 endfunction
@@ -87,6 +92,17 @@ endfunction
 function! ReturnLastPosition() abort
     if line("'\"") > 1 && line("'\"") <= line("$")
         execute "normal! g'\""
+    endif
+endfunction
+
+function! Comment() abort
+    "TODO: add other languages support
+    if &filetype == "vim"
+        map <F2> :s/^/" /<CR>:noh<CR>
+        map <F4> :s/^" //<CR>:noh<CR>
+    elseif &filetype == "erlang"
+        map <F2> :s/^/% /<CR>:noh<CR>
+        map <F4> :s/^% //<CR>
     endif
 endfunction
 
@@ -111,7 +127,7 @@ vnoremap L $
 "Tab places the cursor at matching bracket
 nnoremap <tab> %
 vnoremap <tab> %
-"Ctrl-s saves the file, in INSERT MODE
+"Ctrl-s saves the file, in any mode
 inoremap <C-s> <ESC>:w<CR>
 nnoremap <C-s> <ESC>:w<CR>
 vnoremap <C-s> <ESC>:w<CR>
@@ -133,3 +149,5 @@ nnoremap <leader>h <C-w>S<C-w>k
 "Reload the config file
 noremap <silent> <C-l> <Esc>:source ~/.config/nvim/init.vim<CR>
 "TODO: make some ifs and remaps to easily save, compile and test code
+"noremap <silent> <leader>c :s/^//<CR>:nohl<CR>
+"noremap <silent> <leader>u :s/^///e<CR>:nohl<CR>
