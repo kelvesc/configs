@@ -141,7 +141,7 @@ super + Escape
   shut
 
 super + w
-  firefox &
+  otter-browser &
 
 shift + F9
   reader
