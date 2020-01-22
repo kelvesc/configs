@@ -96,13 +96,22 @@ function! ReturnLastPosition() abort
 endfunction
 
 function! Comment() abort
+    " map <leader>u :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR><ESC>:nohlsearch<CR>
     "TODO: add other languages support
+    "TODO: change maps to <leader>c and <leader>u
     if &filetype == "vim"
         map <silent> <F2> :s/^/" /<CR>:nohlsearch<CR>
         map <silent> <F4> :s/^" //<CR>:nohlsearch<CR>
     elseif &filetype == "erlang"
         map <silent> <F2> :s/^/% /<CR>:nohlsearch<CR>
         map <silent> <F4> :s/^% //<CR>:nohlsearch<CR>
+        inoremap .. ->
+    elseif &filetype == "haskell"
+        map <silent> <F2> :s/^/-- /<CR>:nohlsearch<CR>
+        map <silent> <F4> :s/^-- //<CR>:nohlsearch<CR>
+    elseif &filetype == "python"
+        map <silent> <F2> :s/^/# /<CR>:nohlsearch<CR>
+        map <silent> <F4> :s/^# //<CR>:nohlsearch<CR>
     endif
 endfunction
 
@@ -135,6 +144,8 @@ vnoremap <C-s> <ESC>:w<CR>
 inoremap qq <ESC>:q<CR>
 nnoremap qq <ESC>:q<CR>
 vnoremap qq <ESC>:q<CR>
+"QQ to force quit
+nnoremap QQ <ESC>:q!<CR>
 "Remaps jj to ESC, in INSERT MODE
 inoremap jj <ESC>
 "Deactivates highlighted search
