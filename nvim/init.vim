@@ -76,7 +76,7 @@ autocmd Filetype haskell,vhdl,ada let b:comment_leader = "-- "
 autocmd Filetype c,cpp let b:comment_leader = "// "
 autocmd Filetype sh,make,python let b:comment_leader = "# "
 autocmd Filetype erlang let b:comment_leader = "% "
-autocmd BufEnter * call <silent> Comment()
+autocmd BufEnter * call Comment()
 
 "Functions
 function! SpellCheck() abort
@@ -98,11 +98,11 @@ endfunction
 function! Comment() abort
     "TODO: add other languages support
     if &filetype == "vim"
-        map <F2> :s/^/" /<CR>:noh<CR>
-        map <F4> :s/^" //<CR>:noh<CR>
+        map <silent> <F2> :s/^/" /<CR>:nohlsearch<CR>
+        map <silent> <F4> :s/^" //<CR>:nohlsearch<CR>
     elseif &filetype == "erlang"
-        map <F2> :s/^/% /<CR>:noh<CR>
-        map <F4> :s/^% //<CR>
+        map <silent> <F2> :s/^/% /<CR>:nohlsearch<CR>
+        map <silent> <F4> :s/^% //<CR>:nohlsearch<CR>
     endif
 endfunction
 
@@ -147,7 +147,7 @@ nnoremap <leader>v V`]
 nnoremap <leader>v <C-w>v<C-w>l
 nnoremap <leader>h <C-w>S<C-w>k
 "Reload the config file
-noremap <silent> <C-l> <Esc>:source ~/.config/nvim/init.vim<CR>
+noremap <silent> <C-l> <Esc>:source ~/.config/nvim/init.vim<CR>:nohlsearch<CR>
 "TODO: make some ifs and remaps to easily save, compile and test code
 "noremap <silent> <leader>c :s/^//<CR>:nohl<CR>
 "noremap <silent> <leader>u :s/^///e<CR>:nohl<CR>
