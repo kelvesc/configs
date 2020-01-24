@@ -67,15 +67,14 @@ augroup vimrc
     autocmd!
     autocmd BufWinEnter,Syntax * syn sync minlines=500 maxlines=500
 augroup END
-autocmd FocusLost * :wa "Autosaves when focus is lost
+"Autosaves when focus is lost
+autocmd FocusLost * :wa
 autocmd FocusGained,BufEnter * checktime
-"Return to last editing position when opening the file
-"autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
 autocmd BufReadPost * :call ReturnLastPosition()
-autocmd Filetype haskell,vhdl,ada let b:comment_leader = "-- "
-autocmd Filetype c,cpp let b:comment_leader = "// "
-autocmd Filetype sh,make,python let b:comment_leader = "# "
-autocmd Filetype erlang let b:comment_leader = "% "
+" autocmd Filetype haskell,vhdl,ada
+" autocmd Filetype c,cpp
+autocmd Filetype sh,make,python  map <silent> <F2> :s/^/% /<CR>:nohlsearch<CR>
+" autocmd Filetype erlang
 autocmd BufEnter * call Comment()
 
 "Functions
@@ -96,7 +95,6 @@ function! ReturnLastPosition() abort
 endfunction
 
 function! Comment() abort
-    " map <leader>u :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR><ESC>:nohlsearch<CR>
     "TODO: add other languages support
     "TODO: change maps to <leader>c and <leader>u
     if &filetype == "vim"
@@ -119,7 +117,7 @@ endfunction
 "let leader
 let mapleader = ","
 "Remaps F1 to ESC in all modes
-noremap! <F1> <ESC>
+noremap <F1> <ESC>
 "TODO: figure out how folding works
 nnoremap <F3> za
 nnoremap <Space> za
