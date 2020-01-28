@@ -71,12 +71,11 @@ augroup END
 autocmd FocusLost * :wa
 autocmd FocusGained,BufEnter * checktime
 autocmd BufReadPost * :call ReturnLastPosition()
-"TODO: function to set all language specific facilities
-" autocmd Filetype haskell,vhdl,ada call EasyHS()
-" autocmd Filetype c,cpp call EasyC()
-autocmd Filetype sh,make,python  map <silent> <F2> :s/^/% /<CR>:nohlsearch<CR>
-" autocmd Filetype erlang call EasyErlang()
-autocmd BufEnter * call Comment()
+autocmd Filetype haskell,vhdl,ada call HSSyntax()
+autocmd Filetype c,cpp call CSyntax()
+autocmd Filetype sh,make,python  ScriptSyntax()
+autocmd Filetype erlang call ErlangSyntax()
+" autocmd BufEnter * call Comment()
 
 "Functions
 function! SpellCheck() abort
@@ -95,38 +94,38 @@ function! ReturnLastPosition() abort
     endif
 endfunction
 
-function! EasyHS() abort
-    map <silent> <F2> :s/^/-- /<CR>:nohlsearch<CR>
-    map <silent> <F4> :s/^-- //<CR>:nohlsearch<CR>
+function! HSSyntax() abort
+    map <silent> <F2> :s/^/--/<CR>:nohlsearch<CR>
+    map <silent> <F4> :s/^--//<CR>:nohlsearch<CR>
 endfunction
 
 function! EasyC() abort
+    map <silent> <F2> :s/^/\/\//<CR>:nohlsearch<CR>
+    map <silent> <F4> :s/^\/\///<CR>:nohlsearch<CR>
 endfunction
 
-function! EasyErlang() abort
-    map <silent> <F2> :s/^/% /<CR>:nohlsearch<CR>
-    map <silent> <F4> :s/^% //<CR>:nohlsearch<CR>
+function! ScriptSyntax() abort
+    map <silent> <F2> :s/^/#/<CR>:nohlsearch<CR>
+    map <silent> <F4> :s/^#//<CR>:nohlsearch<CR>
+endfunction
+
+
+function! ErlangSyntax() abort
+    map <silent> <F2> :s/^/%/<CR>:nohlsearch<CR>
+    map <silent> <F4> :s/^%//<CR>:nohlsearch<CR>
     inoremap .. ->
 endfunction
 
 function! Comment() abort
     "TODO: add other languages support
-    "TODO: change maps to <leader>c and <leader>u
     if &filetype == "vim"
         map <silent> <Leader>1 :s/^/" /<CR>:nohlsearch<CR>
         map <silent> <Leader>2 :s/^" //<CR>:nohlsearch<CR>
         map <silent> <F2> :s/^/" /<CR>:nohlsearch<CR>
         map <silent> <F4> :s/^" //<CR>:nohlsearch<CR>
-    elseif &filetype == "erlang"
-        map <silent> <F2> :s/^/% /<CR>:nohlsearch<CR>
-        map <silent> <F4> :s/^% //<CR>:nohlsearch<CR>
-        inoremap .. ->
     elseif &filetype == "haskell"
         map <silent> <F2> :s/^/-- /<CR>:nohlsearch<CR>
         map <silent> <F4> :s/^-- //<CR>:nohlsearch<CR>
-    elseif &filetype == "python"
-        map <silent> <F2> :s/^/# /<CR>:nohlsearch<CR>
-        map <silent> <F4> :s/^# //<CR>:nohlsearch<CR>
     endif
 endfunction
 
