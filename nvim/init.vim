@@ -73,7 +73,7 @@ autocmd FocusGained,BufEnter * checktime
 autocmd BufReadPost * :call ReturnLastPosition()
 autocmd Filetype haskell,vhdl,ada call HSSyntax()
 autocmd Filetype c,cpp call CSyntax()
-autocmd Filetype sh,make,python  ScriptSyntax()
+autocmd Filetype sh,make,python call ScriptSyntax()
 autocmd Filetype erlang call ErlangSyntax()
 " autocmd BufEnter * call Comment()
 
