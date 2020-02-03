@@ -1,4 +1,6 @@
-# BSPWM HOTKEYS
+###-----------------------------------------------------------------------------
+### BSPWM HOTKEYS
+###-----------------------------------------------------------------------------
 
 # Quit/restart bspwm
 ctrl + {_,shift +}Escape
@@ -34,7 +36,9 @@ super + equal
 super + minus
     bspc node @/ --balance
 
-# STATE/FLAGS
+###-----------------------------------------------------------------------------
+### STATE/FLAGS
+###-----------------------------------------------------------------------------
 
 # Set the window state
 super + {t,shift + t,s,f}
@@ -45,7 +49,9 @@ super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
 
 
-# FOCUS/SWAP
+###-----------------------------------------------------------------------------
+### FOCUS/SWAP
+###-----------------------------------------------------------------------------
 
 # Swap the current node and the biggest node
 super + g
@@ -88,7 +94,9 @@ super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
 
 
-# PRESELECT
+###-----------------------------------------------------------------------------
+### PRESELECT
+###-----------------------------------------------------------------------------
 
 # Preselect the direction
 super + ctrl + {h,j,k,l}
@@ -107,7 +115,9 @@ super + ctrl + shift + space
 	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
 
-# MOVE/RESIZE
+###-----------------------------------------------------------------------------
+### MOVE/RESIZE
+###-----------------------------------------------------------------------------
 
 # Send the newest marked node to the newest preselected node
 super + y
@@ -129,7 +139,9 @@ super + alt + shift + {h,j,k,l}
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
-# WM INDEPENDENT HOTKEYS
+###-----------------------------------------------------------------------------
+### WM INDEPENDENT HOTKEYS
+###-----------------------------------------------------------------------------
 
 {super, ctrl, alt} + Return
   {urxvtc, urxvtc, urxvt}
@@ -143,12 +155,18 @@ super + Escape
 super + w
   otter-browser &
 
+#TODO: merge all little utilities into groups of commands like:
+# shift + {F1, F2, F3, F4, F5}
+# {command1, command2, command3, command4, command5}
+
 shift + F9
   reader
 
 F10
     polybar-msg cmd toggle
-#shift + F11
+
+shift + F11
+    kill -s 10 $(pidof sleep)
 
 shift + F12
   usbmount
