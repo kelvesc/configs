@@ -75,7 +75,7 @@ autocmd Filetype haskell,vhdl,ada call HSSyntax()
 autocmd Filetype c,cpp call CSyntax()
 autocmd Filetype sh,make,python call ScriptSyntax()
 autocmd Filetype erlang call ErlangSyntax()
-" autocmd BufEnter * call Comment()
+autocmd Filetype ml,sml call MLSyntax()
 
 "Functions
 function! SpellCheck() abort
@@ -116,8 +116,15 @@ function! ErlangSyntax() abort
     inoremap .. ->
 endfunction
 
+function! MLSyntax() abort
+    map <silent> <F2> :s/^/(*/<CR>:s/$/*)/<CR>:nohlsearch<CR>
+    map <silent> <F4> :s/^(*//<CR>:s/*)$/ /<CR>:nohlsearch<CR>
+    inoremap ;  (
+    inoremap ;; )
+    inoremap .. =>
+endfunction
+
 function! Comment() abort
-    "TODO: add other languages support
     if &filetype == "vim"
         map <silent> <Leader>1 :s/^/" /<CR>:nohlsearch<CR>
         map <silent> <Leader>2 :s/^" //<CR>:nohlsearch<CR>
