@@ -153,23 +153,22 @@ super + Escape
   shut
 
 super + w
-  otter-browser &
+  netsurf &
 
 #TODO: merge all little utilities into groups of commands like:
-# shift + {F1, F2, F3, F4, F5}
-# {command1, command2, command3, command4, command5}
+# reason: pidof is faster than pgrep
+ctrl + {F1, F2} 
+    {kill -s10 $(pidof -x sleep), kill -s12 $(pidof -x sleep)}
 
-shift + F9
-  reader
+#TODO: merge little utilities, of a diffrent kind as the above, here too
+alt + {F1, F2}
+  {reader, usbmount}
 
-F10
+F12
     polybar-msg cmd toggle
 
 shift + F11
     kill -s 10 $(pidof sleep)
-
-shift + F12
-  usbmount
 
 # this one need a perl script do to the job
 #super + Escape
