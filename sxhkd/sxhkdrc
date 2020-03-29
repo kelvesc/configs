@@ -7,17 +7,15 @@ ctrl + {_,shift +}Escape
 	bspc {wm -r,quit}
 
 # Close and kill
-ctrl + {_,shift + }q
+{alt, ctrl} + {_,shift + }q
 	bspc node --{close,kill}
-alt + q
-  bspc node --close
 
 # Alternate between the tiled and monocle layout
 super + m
 	bspc desktop -l next
 
 # Navigate layouts
-super + {_,shift + }space
+{alt, super} + {_,shift + }space
   bspc desktop --layout {next,prev}
 
 # Rotate desktop
@@ -29,11 +27,11 @@ super +{_,shift + }c
   bspc node @/ --circulate {backward,forward}
 
 # Equalize split ratios
-super + equal
+{alt, super} + equal
   bspc node @/ --equalize
 
 # Balance split ratios
-super + minus
+{alt, super} + minus
     bspc node @/ --balance
 
 ###-----------------------------------------------------------------------------
@@ -66,13 +64,13 @@ super + {p,b,comma,period}
 	bspc node -f @{parent,brother,first,second}
 
 # Focus the next/previous node in the current desktop
-alt + {_,shift + }Tab
-	bspc node -f {next,prev}.local
-alt + {_,shift + }w
-	bspc node -f {next,prev}.local
+# TODO: better hor keys
+alt + {_,shift + }{Tab, w}
+	bspc node -f {next, prev, next, prev}.local
 
-# Focus the last node/desktop REDFLAG "grave" doesn't seen to work
-super + {grave,Tab}
+# Focus the last node/desktop
+# TODO: better hot keys
+super + {w,Tab}
 	bspc {node,desktop} -f last
 
 # Focus the next/previous desktop in the current monitor
@@ -143,12 +141,11 @@ super + {Left,Down,Up,Right}
 ### WM INDEPENDENT HOTKEYS
 ###-----------------------------------------------------------------------------
 
-{super, ctrl, alt} + Return
-  {urxvtc, urxvtc, urxvt}
+{ctrl, alt, shift} + Return
+  {urxvtc, urxvt, xterm}
 
-shift + Return
-	xterm
-
+ctrl + {_, shift + } t
+    {sakura, fbterm}
 super + Escape
   shut
 
@@ -168,7 +165,7 @@ F12
     polybar-msg cmd toggle
 
 shift + F11
-    kill -s 10 $(pidof sleep)
+    kill -s10 $(pidof sleep)
 
 # this one need a perl script do to the job
 #super + Escape
@@ -176,7 +173,7 @@ shift + F11
 
 # Make sxhkd reload its configuration file (SIGUSR1)
 alt + Escape
-	sxhkd-reload
+	hkreload
 
 # Active screensaver
 ctrl + shift + l
