@@ -139,6 +139,8 @@ endfunction
 "Abbreviations
 abbr todo TODO
 abbr tood TODO
+abbr tehn then
+abbr ,, :
 
 "Mappings
 "let leader
