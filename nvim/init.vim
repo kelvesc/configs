@@ -109,7 +109,6 @@ function! ScriptSyntax() abort
     map <silent> <F4> :s/^#//<CR>:nohlsearch<CR>
 endfunction
 
-
 function! ErlangSyntax() abort
     map <silent> <F2> :s/^/%/<CR>:nohlsearch<CR>
     map <silent> <F4> :s/^%//<CR>:nohlsearch<CR>
@@ -119,8 +118,6 @@ endfunction
 function! MLSyntax() abort
     map <silent> <F2> :s/^/(*/<CR>:s/$/*)/<CR>:nohlsearch<CR>
     map <silent> <F4> :s/^(*//<CR>:s/*)$/ /<CR>:nohlsearch<CR>
-    inoremap ;  (
-    inoremap ;; )
     inoremap ,, =>
 endfunction
 
@@ -137,21 +134,20 @@ function! Comment() abort
 endfunction
 
 "Abbreviations
-abbr todo TODO
-abbr tood TODO
+abbr todo TODO:
+abbr tood TODO:
+abbr fixm FIXME:
+abbr fxme FIXME:
 abbr tehn then
-abbr .. :
+abbr lese else
+abbr caes case
+abbr ceas case
 
 "Mappings
 "let leader
 let mapleader = ","
 "Remaps F1 to ESC in all modes
 noremap <F1> <ESC>
-"TODO: figure out how folding works
-nnoremap <F3> za
-nnoremap <Space> za
-vnoremap <Space> za
-inoremap <F3> <C-O>za
 "Fix regex search by inserting \v at the begining
 nnoremap / /\v
 vnoremap / /\v
@@ -163,6 +159,9 @@ vnoremap L $
 "Tab places the cursor at matching bracket
 nnoremap <tab> %
 vnoremap <tab> %
+"Easier access to ( and )
+inoremap ~  (
+inoremap ^ )
 "Ctrl-s saves the file, in any mode
 inoremap <C-s> <ESC>:w<CR>
 nnoremap <C-s> <ESC>:w<CR>
@@ -186,6 +185,11 @@ nnoremap <leader>v <C-w>v<C-w>l
 nnoremap <leader>h <C-w>S<C-w>k
 "Reload the config file
 noremap <silent> <C-l> <Esc>:source ~/.config/nvim/init.vim<CR>:nohlsearch<CR>
+"TODO: figure out how folding works
+nnoremap <F3> za
+nnoremap <Space> za
+vnoremap <Space> za
+inoremap <F3> <C-O>za
 "TODO: make some ifs and remaps to easily save, compile and test code
 "noremap <silent> <leader>c :s/^//<CR>:nohl<CR>
 "noremap <silent> <leader>u :s/^///e<CR>:nohl<CR>
