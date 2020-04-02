@@ -141,11 +141,8 @@ super + {Left,Down,Up,Right}
 ### WM INDEPENDENT HOTKEYS
 ###-----------------------------------------------------------------------------
 
-{ctrl, alt, shift} + Return
-  {urxvtc, urxvt, xterm}
-
-ctrl + {_, shift + } t
-    sakura --colorset {4, 1}
+{ctrl,shift, alt} + Return
+  {sakura --colorset 4, sakura --colorset 1, urxvtc}
 
 super + Escape
   shut
@@ -153,12 +150,13 @@ super + Escape
 super + w
   netsurf &
 
-#TODO: merge all little utilities into groups of commands like:
 # reason: pidof is faster than pgrep
-ctrl + {F1, F2, F3} 
+ctrl + {F1, F2, F3, F4} 
     {kill -s10 $(pidof -x sleep),\
     kill -s12 $(pidof -x sleep),\
-  xscreensaver-command -activate}
+    urxvt,\
+    xterm}
+#xscreensaver-command -activate}
 
 #TODO: merge little utilities, of a diffrent kind as the above, here too
 alt + {F1, F2}
