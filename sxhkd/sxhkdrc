@@ -56,7 +56,7 @@ super + g
 	bspc node -s biggest
 
 # Focus the node in the given direction
-super + {_,shift + }{h,j,k,l}
+super + {_,shift + } {h,j,k,l}
 	bspc node -{f,s} {west,south,north,east}
 
 # Focus the node for the given path jump
@@ -65,7 +65,7 @@ super + {p,b,comma,period}
 
 # Focus the next/previous node in the current desktop
 # TODO: better hor keys
-alt + {_,shift + }{Tab, w}
+alt + {_,shift + } {Tab, w}
 	bspc node -f {next, prev, next, prev}.local
 
 # Focus the last node/desktop
@@ -117,6 +117,10 @@ super + ctrl + shift + space
 ### MOVE/RESIZE
 ###-----------------------------------------------------------------------------
 
+# Expand a window by moving one of its side outward
+super + alt + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
 # Send the newest marked node to the newest preselected node
 super + y
 	bspc node newest.marked.local -n newest.!automatic.local
@@ -124,10 +128,6 @@ super + y
 # Move window to the next/prev desktop
 ctrl + alt + {h,l}
 	bspc node --to-desktop {prev,next} --focus
-
-# Expand a window by moving one of its side outward
-super + alt + {h,j,k,l}
-	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
 # Contract a window by moving one of its side inward
 super + alt + shift + {h,j,k,l}
@@ -145,7 +145,8 @@ super + {Left,Down,Up,Right}
   {urxvtc, urxvt, xterm}
 
 ctrl + {_, shift + } t
-    {sakura, fbterm}
+    sakura --colorset {4, 1}
+
 super + Escape
   shut
 
@@ -154,28 +155,22 @@ super + w
 
 #TODO: merge all little utilities into groups of commands like:
 # reason: pidof is faster than pgrep
-ctrl + {F1, F2} 
-    {kill -s10 $(pidof -x sleep), kill -s12 $(pidof -x sleep)}
+ctrl + {F1, F2, F3} 
+    {kill -s10 $(pidof -x sleep),\
+    kill -s12 $(pidof -x sleep),\
+  xscreensaver-command -activate}
 
 #TODO: merge little utilities, of a diffrent kind as the above, here too
 alt + {F1, F2}
   {reader, usbmount}
 
+shift + {F1, F2, F3, F4}
+    qed {hk, wm, sh, vi}
+
+# kill and restart sxhkd with a new configuration file
+F11
+    hkreload
+
 F12
     polybar-msg cmd toggle
-
-shift + F11
-    kill -s10 $(pidof sleep)
-
-# this one need a perl script do to the job
-#super + Escape
-#	kill -1 $(pidof urxvtd)
-
-# Make sxhkd reload its configuration file (SIGUSR1)
-alt + Escape
-	hkreload
-
-# Active screensaver
-ctrl + shift + l
-  xscreensaver-command -activate
 
