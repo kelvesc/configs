@@ -113,7 +113,7 @@ endfunction
 function! ErlangSyntax() abort
     map <silent> <F2> :s/^/%/<CR>:nohlsearch<CR>
     map <silent> <F4> :s/^%//<CR>:nohlsearch<CR>
-    inoremap .. ->
+    inoremap ,, ->
 endfunction
 
 function! MLSyntax() abort
@@ -121,7 +121,7 @@ function! MLSyntax() abort
     map <silent> <F4> :s/^(*//<CR>:s/*)$/ /<CR>:nohlsearch<CR>
     inoremap ;  (
     inoremap ;; )
-    inoremap .. =>
+    inoremap ,, =>
 endfunction
 
 function! Comment() abort
@@ -140,7 +140,7 @@ endfunction
 abbr todo TODO
 abbr tood TODO
 abbr tehn then
-abbr ,, :
+abbr .. :
 
 "Mappings
 "let leader
