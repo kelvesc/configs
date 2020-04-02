@@ -4,8 +4,12 @@
 \\builtin export SHELL=$MKSH MANWIDTH=80 LESSHISTFILE=-
 \\builtin export HISTSIZE=500 HISTFILE=~/.mksh_history
 
+# Return to $HOME if not already there
+[ "$PWD" = "$HOME" ] || cd "$HOME"
+
 # Trying to make java gui programs to run (it bugs for not recognizing WM name)
 \\builtin export _JAVA_AWT_WM_NONREPARENTING=1
+
 # [PROMPTS]
 \\builtin export PS1='$(prompt) '
 \\builtin export PS2=">> "
