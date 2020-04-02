@@ -7,11 +7,12 @@
 !#include ".config/xresources/ocean.dark"
 !#include ".config/xresources/sol.dark"
 
-! Xft.dpi:              120
-! Xft.antialiasing:     TRUE
-! Xft.rgba:             RGB
-! Xft.hinting:          TRUE
-! Xft.lcdfilter:        lcddefault
+Xft.dpi:              120
+Xft.rgba:             RGB
+Xft.antialiasing:     TRUE
+Xft.autohint:         FALSE
+Xft.hinting:          TRUE
+Xft.lcdfilter:        lcdlight
 
 !Xcursor.theme:
 !Xcursor.size:          16
@@ -20,16 +21,14 @@
 !URxvt Specifics
 !Pixelsize is not equal size
 URxvt*cursorColor:	    #1099FF
-!URxvt*font:	            xft:DejavuSerif:pixelsize=16
-URxvt*font:	            xft:Dooling-Bold:pixelsize=16
-!URxvt*font:	        xft:EnvyCodeR:pixelsize=14
-URxvt*letterSpace:	    0
-Urxvt*lineSpace:	    1
+URxvt*font:	            xft:FreeMono:Relgular:pixelsize=16
+!URxvt*font:	            xft:Fixed:Bold:pixelsize=16
+URxvt*letterSpace:	    1
+Urxvt*lineSpace:	    5
 URxvt*dynamicColors:	ON
 URxvt.border:           COLOR6
 URxvt.borderless:       TRUE
 URxvt.internalBorder:   3
-!URxvt.depth:           35
 
 ! URxvt Scroll Options
 URxvt*saveLines:	    2000
@@ -43,6 +42,10 @@ URxvt*scrollTtyKeypress:TRUE
 ! disble scrollback buffer when using a pager
 URxvt.secondaryScreen:  1
 URxvt.secondaryScroll:  0
+
+! Sakura Specifics
+sakura*letterSpace:     0
+sakura*lineSpace:       1
 
 ! XTerm Specifics
 xterm*cursorColor:	    #F95533
