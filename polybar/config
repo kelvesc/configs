@@ -41,27 +41,21 @@ format-offset =
 pseudo-transparency = false
 
 [colors]
-background = ${colors.main-safe}
-background-alt = ${colors.main-safe-alt}
-foreground = ${colors.complementary-safe}
-foreground-alt = ${colors.complementary-safe-alt}
-line = ${colors.complementary-safe}
-line-alt = ${colors.triadic-safe-1}
-urgent = ${colors.triadic-safe-2}
+background = ${colors.main}
+background-alt = ${colors.main-alt}
+foreground = ${colors.complementary}
+foreground-alt = ${colors.complementary-alt}
+line = ${colors.complementary}
+line-alt = ${colors.triadic-1}
+urgent = ${colors.triadic-2}
 
-;my blue pallet
-main = #21978E
-complementary = #9E3821
-triadic1 = #38219E
-triadic2 = #879E21
-
-;my blue pallet web safe
-main-safe = #339999
-main-safe-alt = #39ACAC
-complementary-safe = #993333
-complementary-safe-alt = #BF4040
-triadic-safe-1 = #993399
-triadic-safe-2 = #999933 
+; web safe blue pallet
+main = #339999
+main-alt = #39ACAC
+complementary = #993333
+complementary-alt = #BF4040
+triadic-1 = #993399
+triadic-2 = #999933 
 
 [bar/bar]
 monitor = 
@@ -87,9 +81,9 @@ module-margin-left = 1
 module-margin-right = 1
 
 
-font-0 = fixed:pixelsize=10;1
+font-0 = Fixed:Bold:pixelsize=10;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = College:pixelsize=10;1
+font-2 = FreeMono:Regular:pixelsize=10;1
 
 modules-left = 
 modules-center = bspwm
@@ -114,7 +108,7 @@ tray-scale = 1.0
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-line-size = 2
+line-size = 1
 line-color = ${colors.line}
 
 border-size = 0
@@ -133,9 +127,10 @@ type = internal/bspwm
 
 label-focused = %index%
 label-focused-padding = 2
-label-focused-background = ${colors.background-alt}
+label-focused-foreground = ${colors.background}
+label-focused-background = ${colors.foreground-alt}
 label-focused-underline= ${colors.line}
-;Label-Focused_font=${bar.font-2}
+Label-Focused_font=${bar.font-2}
 
 label-occupied = %index%
 label-occupied-padding = 2
@@ -171,22 +166,6 @@ label-empty-padding = 2
 ;label-indicator-margin = 1
 ;label-indicator-background = ${colors.secondary}
 ;label-indicator-underline = ${colors.secondary}
-
-;[module/filesystem]
-;type = internal/fs
-;interval = 25
-
-;mount-0 = /
-
-;label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
-;label-unmounted = %mountpoint% not mounted
-;label-unmounted-foreground = ${colors.foreground-alt}
-
-;[module/xbacklight]
-;type = internal/xbacklight
-
-;format = <label> <bar>
-;label = BL
 
 ;bar-width = 10
 ;bar-indicator = |
@@ -257,22 +236,6 @@ label-empty-padding = 2
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
-
-;[module/date]
-;type = internal/date
-;interval = 5
-
-;date =
-;date-alt = " %Y-%m-%d"
-
-;time = %H:%M
-;time-alt = %H:%M:%S
-
-;format-prefix = 
-;format-prefix-foreground = ${colors.foreground-alt}
-;format-underline = #0a6cf5
-
-;label = %date% %time%
 
 ;[module/mpd]
 ;type = internal/mpd
