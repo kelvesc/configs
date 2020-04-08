@@ -1,0 +1,46 @@
+# CAUTION!
+# Do not insert any line breaks in the rules
+# udev does not support line continuation
+
+# KERNEL match the kernel name of the device
+# SUBSYSTEM match against the subsystem device
+# DRIVE match against driver backing the device
+# KERNELS, SUBSYSTEMS, DRIVERS and ATTRS may be used to referece to parents dev
+
+# NAME is the name that will be used for the device node
+# NAME="usb%k"
+# SYMLINK is a list fo symlinks which act as alternative names for the node
+# SYMLINK="usb%n"
+
+# GROUP indicates the group whom the device shall belong
+# GROUP="users"
+# IMPORT{builtin}="usb_id"
+# [] to match ranges, ? to a single character and * to multiple times
+# %k evaluates to the kernel name of the device, %n kernel number of the device
+
+# not a usb stick, go to end
+KERNEL!="sd[b-z]?", GOTO="device_removed"
+
+# usb stick, run notification script
+KERNEL=="sd[b-z]*", ACTION=="add", RUN+="/usr/bin/usbntf.sh"
+
+# WORKED
+# usb stick removed, run rm on created directory
+KERNEL=="sd[b-z]?", ACTION=="remove", RUN+="/usr/bin/rmdir '/media/usb%n'"
+
+# set mount options
+ACTION=="add", ENV{mount_options}="gid=100,dmask=000,fmask=111,utf8,flush,rw,noatime,users"
+
+# WORKED
+# create a directory to mount the usb stick
+ACTION=="add", RUN+="/usr/bin/mkdir -p '/media/usb%n"
+
+# DID NOT WORK: user has no permission to mount devices
+# mount usb stick under the created directory
+ACTION=="add", ENV{ID_FS_TYPE}=="(ntfs|vfat)", RUN+="/usr/bin/mount -t auto -o %E{mount_options} /dev/%k '/media/usb%n'"
+
+# device removed, run rm on created directory(?)
+ACTION=="remove", ENV{ID_FS_TYPE}!="(ntfs|vfat)", GOTO="device_removed"
+
+LABEL="device_removed"
+
