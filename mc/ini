@@ -108,22 +108,22 @@ editor_stop_format_chars=-+*\\,.;:&>
 mcview_eof=
 
 [Layout]
-message_visible=1
-keybar_visible=1
-xterm_title=0
+message_visible=true
+keybar_visible=true
+xterm_title=false
 output_lines=0
-command_prompt=0
-menubar_visible=1
+command_prompt=false
+menubar_visible=true
 show_mini_info=1
 permission_mode=0
 filetype_mode=1
 
-free_space=1
+free_space=true
 
-horizontal_split=1
-vertical_equal=1
+horizontal_split=true
+vertical_equal=true
 left_panel_size=38
-horizontal_equal=0
+horizontal_equal=false
 top_panel_size=14
 
 [Dirs]
@@ -202,6 +202,8 @@ rxvt-unicode-256color=
 color_terminals=
 
 xterm=
+
+xterm-256color=
 
 [Panels]
 show_mini_info=true
