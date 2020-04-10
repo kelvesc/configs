@@ -21,13 +21,6 @@
 # not a usb stick, go to end
 KERNEL!="sd[b-z]?", GOTO="device_removed"
 
-# usb stick, run notification script
-KERNEL=="sd[b-z]*", ACTION=="add", RUN+="/usr/bin/usbntf.sh"
-
-# WORKED
-# usb stick removed, run rm on created directory
-KERNEL=="sd[b-z]?", ACTION=="remove", RUN+="/usr/bin/rmdir '/media/usb%n'"
-
 # set mount options
 ACTION=="add", ENV{mount_options}="gid=100,dmask=000,fmask=111,utf8,flush,rw,noatime,users"
 
@@ -35,12 +28,19 @@ ACTION=="add", ENV{mount_options}="gid=100,dmask=000,fmask=111,utf8,flush,rw,noa
 # create a directory to mount the usb stick
 ACTION=="add", RUN+="/usr/bin/mkdir -p '/media/usb%n"
 
+# usb stick, run notification script
+KERNEL=="sd[b-z]*", ACTION=="add", RUN+="/bin/ntf.sh"
+
 # DID NOT WORK: user has no permission to mount devices
 # mount usb stick under the created directory
 ACTION=="add", ENV{ID_FS_TYPE}=="(ntfs|vfat)", RUN+="/usr/bin/mount -t auto -o %E{mount_options} /dev/%k '/media/usb%n'"
 
 # device removed, run rm on created directory(?)
 ACTION=="remove", ENV{ID_FS_TYPE}!="(ntfs|vfat)", GOTO="device_removed"
+
+# WORKED
+# usb stick removed, run rm on created directory
+KERNEL=="sd[b-z]?", ACTION=="remove", RUN+="/usr/bin/rmdir '/media/usb%n'"
 
 LABEL="device_removed"
 
