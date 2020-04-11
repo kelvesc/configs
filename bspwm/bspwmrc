@@ -1,22 +1,30 @@
 #!/bin/sh
 
-bspc monitor -d I II III IV V VI VII VIII IX X
-#bspc monitor --reset-desktops I II III IV V VI VII VIII IX X
+bspc monitor --reset-desktops I II III IV V VI VII VIII IX X
 
-# Paddings
+#++++++++++#
+# Paddings #
+#++++++++++#
 bspc config top_padding		        2
 bspc config bottom_padding          2
 bspc config left_padding	        2
 bspc config right_padding	        2
 
-# Colors
-bspc config normal_border_color    "#2AA198"
-bspc config focused_border_color   "#2FB5AB"
-bspc config presel_feedback_color  "#35C9BE"
-#bspc config presel_feedback_color "#FF80DD" # Fallback color
-bspc config active_border_color    "#859900"
+#++++++++++#
+#  Colors  #
+#++++++++++#
+# color of a focused window of a focused monitor
+bspc config focused_border_color    "#35C9BD"
+# color of the preselected region
+bspc config presel_feedback_color   "#35C9BD"
+# color of an unfocused window
+bspc config normal_border_color     "#6234C5"
+# color of a focused window of an unfocused monitor
+bspc config active_border_color     "#C16033"
 
-# Behaviors
+#+++++++++++#
+# Behaviors #
+#+++++++++++#
 bspc config border_width            2
 bspc config window_gap		        6
 bspc config split_ratio             0.50
@@ -28,11 +36,15 @@ bspc config pointer_follows_monitor true
 bspc config initial_polarity        first_child
 #bspc config initial_polarity       second_child
 
-# Desktops
+#++++++++++#
+# Desktops #
+#++++++++++#
 bspc desktop '^3' --layout gapless_monocle
 #bspc desktop '^7' --layout monocle
 
-# Rules
+#++++++++++#
+#  Rules   #
+#++++++++++#
 bspc rule --add netsurf \
     desktop='^3'
 bspc rule --add Zathura	\
@@ -40,11 +52,8 @@ bspc rule --add Zathura	\
 bspc rule --add Conky \
     sticky=on manage=off lower=on
 
-# bspc rule --add Gimp desktop='^8' state=floating follow=on
-# bspc rule --add mplayer2 state=floating
-# bspc rule --add Kupfer.py focus=on
-# bspc rule --add Screenkey manage=off
 
-([[ $(pgrep sxhkd) ]] && hkreload) || \
+([[ $(pidof -xs sxhkd) ]] && hkreload) || \
     sxhkd -c $XDG_CONFIG_HOME/sxhkd/sxhkdrc &
 $HOME/bin/autostart &
+
