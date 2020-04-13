@@ -7,7 +7,7 @@
 # Return to $HOME if not already there
 [ "$PWD" = "$HOME" ] || cd "$HOME"
 
-# Trying to make java gui programs to run (it bugs for not recognizing WM name)
+# Fix java gui programs to run (it bugs when WM name is not recognized)
 \\builtin export _JAVA_AWT_WM_NONREPARENTING=1
 
 # [PROMPTS]
@@ -16,8 +16,21 @@
 \\builtin export PS3=">>> "
 
 prompt () {
-    tput setaf 50
-    echo -en "[$(basename ${PWD})]\U1557"
+    if [ $(id -u) -eq 0 ];
+    then
+    # red
+       tput setaf 160
+    # yellow
+#       tput setaf 190
+    else
+    # cyan
+       tput setaf 50
+    fi
+
+#TODO: extract more info in prompt
+#TODO: return /parent_dir/../last_dir
+#${PWD%%!(/*)} return only the firist /
+    echo -en "[${PWD##(/*/)}]\U1557"
     #echo -e "\U1557"
     tput sgr0
 }
@@ -31,6 +44,7 @@ gdf () { git diff; }
 cmt () { git commit -m "${@}"; }
 etc () { cd $(find /etc -maxdepth 2 -type d | fzy -l 20) ; }
 gf () { cd $(find $HOME/projects  -maxdepth 2 -type d | fzy -l 20) ; }
+qq () { [ -f "$HOME/.quicknotes" ] && nvim "$HOME/.quicknotes"; }
 
 # [ALIAS]
 # --System
@@ -42,6 +56,7 @@ gf () { cd $(find $HOME/projects  -maxdepth 2 -type d | fzy -l 20) ; }
 \\builtin alias lo='ls -Ago'
 \\builtin alias c='cat' 
 \\builtin alias cc='sudo cat'
+\\builtin alias vv='sudo nvim'
 \\builtin alias df='df -h' dt='df -hT'
 \\builtin alias lb='lsblk' lba='lsblk -alp' lbb='lsblk -lp'
 \\builtin alias pki='sudo xbps-install'
@@ -79,7 +94,7 @@ bind '^V'=complete
 bind '^W'=delete-word-backward
 bind '^X'=complete-command
 bind '^Y'=yank
-#=no-op
+bind '^S'=no-op
 #=search-character-forward
 #=delete-char-backward
 #=evaluate-region
