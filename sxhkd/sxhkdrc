@@ -64,22 +64,20 @@ super + {p,b,comma,period}
 	bspc node -f @{parent,brother,first,second}
 
 # Focus the next/previous node in the current desktop
-# TODO: better hor keys
-alt + {_,shift + } {Tab, w}
-	bspc node -f {next, prev, next, prev}.local
+{ctrl, alt} + Tab
+	bspc node -f {next, prev}.local
 
 # Focus the last node/desktop
-# TODO: better hot keys
-super + {w,Tab}
-	bspc {node,desktop} -f last
+{shift, super} + Tab
+	bspc {node,desktop} --focus last
 
 # Focus the next/previous desktop in the current monitor
-super + bracket{left,right}
-	bspc desktop -f {prev,next}.local
+ctrl + bracket{left,right}
+	bspc desktop --focus {prev, next}
 
 # Focus the left/right occupied desktop
-ctrl + bracket{left,right}
-	bspc desktop --focus {prev,next}.occupied
+alt + bracket{left,right}
+	bspc desktop --focus {prev, next}.occupied
 
 # Focus the older or newer node in the focus history
 super + {o,i}
@@ -141,14 +139,18 @@ super + {Left,Down,Up,Right}
 ### WM INDEPENDENT HOTKEYS
 ###-----------------------------------------------------------------------------
 
-{ctrl,shift, alt} + Return
-  {sakura --colorset 4, sakura --colorset 1, urxvtc}
+{shift, ctrl, alt} + Return
+    {sakura, roxterm, urxvtc}
 
-super + Escape
-  shut
+crtl + shift + {ç, u}
+    {urxvtc, urxvt}
+
+shift + Escape
+    shut
 
 super + w
-  netsurf &
+    bspc desktop --focus next.!occupied && \ 
+    netsurf &
 
 # reason: pidof is faster than pgrep
 ctrl + {F1, F2, F3, F4} 
@@ -160,15 +162,20 @@ ctrl + {F1, F2, F3, F4}
 
 #TODO: merge little utilities, of a diffrent kind as the above, here too
 alt + {F1, F2}
-  {reader, usbmount}
+    {reader, usbmount}
 
+# focus the next empty workspace open qed (and return to last workspace)
 shift + {F1, F2, F3, F4}
+    bspc desktop --focus any.!occupied && \
     qed {hk, wm, sh, vi}
+    #sh -c "while ! pidof -xs qed; do bspc desktop -f last.occupied && break; done"
+    #bspc desktop --focus last.occupied
 
 # kill and restart sxhkd with a new configuration file
 F11
     hkreload
 
-F12
-    polybar-msg cmd toggle
+# toggle polybar
+F12 + {_, ctrl}
+    {polybar-msg cmd toggle, bar}
 
