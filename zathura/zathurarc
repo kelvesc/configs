@@ -1,19 +1,19 @@
 
-# set mode fullscreen
-map <F1> toggle_fullscreen
-map <F2> adjust_window best-fit
-map <F3> adjust_window width
+set statusbar-h-padding 0
+set statusbar-v-padding 0
+set page-padding 1
 
-map <C-i> zoom in
-map <C-o> zoom out
-map j scroll down
+map <A-f> toggle_fullscreen
+map <A-b> adjust_window best-fit
+map <A-w> adjust_window width
+
+map u scroll half-up
+map d scroll half-down
+map P toggle_page_mode
+map r reload
+map R rotate
+map K zoom in
+map J zoom out
 map k scroll up
-map <S-j> navigate next
-map <S-k> navigate previous
-map <C-S-j> navigate_index next
-map <C-S-k> navigate_index previous
-map <C-S-Left> rotate-ccw 
-map <C-S-Right> rotate-cw
-
-font monospace normal 12
-# adjust-open widht
+map j scroll down
+map i recolor
