@@ -58,8 +58,8 @@ triadic-1 = #993399
 triadic-2 = #999933 
 
 [bar/bar]
-monitor = 
-monitor-fallback = 
+monitor = ${env:MONITOR:LVDS-1}
+monitor-fallback = ${env:MONITOR:LVDS-1}
 monitor-strict = false
 monitor-redirect = true
 
