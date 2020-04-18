@@ -1,12 +1,13 @@
 " NeoVim Configuration
 
 " General
-set scrolloff=8
 syntax on
 filetype on
-set number
+set termguicolors
 set ruler
+set number
 set relativenumber
+set scrolloff=8
 set autoread            "Auto reads file when file changes
 set lazyredraw          "Don't redraw while processing macros
 set nocursorline        "Draws a line where the cursor is located
@@ -15,24 +16,29 @@ set history=500
 set cmdheight=1
 set background=dark
 set wildmenu            "Completion wnabled
-set wildmode=list:full  "Show a list when completing
+"set wildmode=list:full  "Show a list when completing
+set wildmode=longest,list,full  "Show a list when completing
 
 "Editing
-set encoding=utf-8
-set fileencoding=utf-8
-set termencoding=utf-8
-set textwidth=80
-set colorcolumn=81
 set autoindent
 set smartindent
 set breakindent
-set clipboard=unnamed
+set textwidth=80
+set colorcolumn=81
+set encoding=utf-8
+set fileencoding=utf-8
+set termencoding=utf-8
+set clipboard+=unnamedplus
+
+"Cursor
+"set cursorline
+"set cursorcolumn
+"highlight CursorLine ctermbg=White cterm=bold guibg=#2B2B2B
+"highlight CursorColumn ctermbg=White cterm=bold guibg=#2B2B2B
 
 set modelines=0
 set linebreak           "Break long lines to fit the terminal size
 let &showbreak = "+ "   "Broken lines are denoted by
-set autoindent
-set smartindent
 set wrap
 
 "Tab behavior
@@ -71,11 +77,19 @@ augroup END
 autocmd FocusLost * :wa
 autocmd FocusGained,BufEnter * checktime
 autocmd BufReadPost * :call ReturnLastPosition()
-autocmd Filetype haskell,vhdl,ada call HSSyntax()
+"Remove trailing whitespaces on save
+autocmd BufReadPre * %s/\s\+$//e
+"Center the text whenever entering insert mode
+autocmd InsertEnter * norm zz
 autocmd Filetype c,cpp call CSyntax()
-autocmd Filetype sh,make,python call ScriptSyntax()
-autocmd Filetype erlang call ErlangSyntax()
 autocmd Filetype ml,sml call MLSyntax()
+autocmd Filetype erlang call ErlangSyntax()
+autocmd Filetype haskell,vhdl,ada call HSSyntax()
+autocmd Filetype sh,make,python call ScriptSyntax()
+"Run xrdb when X* is updated
+autocmd BufWritePost *Xresources, *Xdefaults !xrdb %
+"Send SIGUSR1 whenever sxhkdrc is updated
+autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
 
 "Functions
 function! SpellCheck() abort
@@ -99,7 +113,7 @@ function! HSSyntax() abort
     map <silent> <F4> :s/^--//<CR>:nohlsearch<CR>
 endfunction
 
-function! EasyC() abort
+function! CSyntax() abort
     map <silent> <F2> :s/^/\/\//<CR>:nohlsearch<CR>
     map <silent> <F4> :s/^\/\///<CR>:nohlsearch<CR>
 endfunction
@@ -121,17 +135,9 @@ function! MLSyntax() abort
     inoremap ,, =>
 endfunction
 
-function! Comment() abort
-    if &filetype == "vim"
-        map <silent> <Leader>1 :s/^/" /<CR>:nohlsearch<CR>
-        map <silent> <Leader>2 :s/^" //<CR>:nohlsearch<CR>
-        map <silent> <F2> :s/^/" /<CR>:nohlsearch<CR>
-        map <silent> <F4> :s/^" //<CR>:nohlsearch<CR>
-    elseif &filetype == "haskell"
-        map <silent> <F2> :s/^/-- /<CR>:nohlsearch<CR>
-        map <silent> <F4> :s/^-- //<CR>:nohlsearch<CR>
-    endif
-endfunction
+"Test a given filetype:
+"if &filetype == 'vim'
+"elseif &filetype == 'haskell'
 
 "Abbreviations
 abbr todo TODO:
@@ -151,7 +157,7 @@ noremap <F1> <ESC>
 "Fix regex search by inserting \v at the begining
 nnoremap / /\v
 vnoremap / /\v
-"Map Shift-h to lines begining and Shift-l to lines end
+"Map Shift-h to start of the line and Shift-l to lines end
 nnoremap H 0
 vnoremap H 0
 nnoremap L $
@@ -183,7 +189,7 @@ nnoremap <leader>v V`]
 "Open a vertical/horizontal split and switch over to it
 nnoremap <leader>v <C-w>v<C-w>l
 nnoremap <leader>h <C-w>S<C-w>k
-"Reload the config file
+"Reload nvim config file
 noremap <silent> <C-l> <Esc>:source ~/.config/nvim/init.vim<CR>:nohlsearch<CR>
 "TODO: figure out how folding works
 nnoremap <F3> za
