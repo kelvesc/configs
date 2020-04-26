@@ -1,0 +1,7 @@
+# hint taken from:
+# ivanvojtko.blogspot.com/2016/04/hot-to-get-longer-battery-life-on-linux.html
+# this file should go under /etc/udev/rules.d/XX-usb_power_save.rules
+# where XX is an int between 00 and 99
+
+ACTION=="add", SUBSYSTEM=="usb", TEST="power/control", ATTR{power/control}="auto"
+
