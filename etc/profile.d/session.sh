@@ -8,14 +8,15 @@ export PATH
 
 # Set XDG Paths
 XDG_CONFIG_HOME=$HOME/.config
-#XDG_DATA_HOME=$HOME/.local
-#XDG_CACHE_HOME=$HOME/.cache
+XDG_DATA_HOME=$HOME/.local/share
+XDG_CACHE_HOME=$HOME/.cache
+XDG_RUNTIME_DIR=$HOME/tmp
 
 # Set inputrc path
 INPUTRC=/etc/inputrc
 
 ## Set the temporally directory
-sudo mount -t tmpfs -o size=100M,mode=1777 tmps $HOME/tmp
+sudo mount -t tmpfs -o size=200M,mode=1777 tmps $HOME/tmp
 if [ $? -eq 0 ];then
 	TMPDIR=$HOME/tmp
 else
@@ -40,9 +41,6 @@ fi
 ## Set the socket to BSPWM
 if [ -z "$BSPWM_SOCKET" ] && [ -n "$TMPDIR" ]; then
 	BSPWM_SOCKET=$TMPDIR/
-#
-#else
-#	BSPWM_SOCKET=/tmp/
 fi
 
 # Default editor
@@ -54,13 +52,11 @@ LESSHISTSIZE=0
 LESS='-i -R'
 
 
-#export PATH
-#export HOSTNAME
 export TMPDIR
 export XAUTHORITY
 export XDG_CONFIG_HOME
-#export XDG_DATA_HOME
-#export XDG_CACHE_HOME
+export XDG_DATA_HOME
+export XDG_CACHE_HOME
 export RXVT_SOCKET
 export EDITOR
 export LESS
@@ -71,15 +67,9 @@ export LESSHISTSIZE
 #[ ! -s ~/.config/mpd/mpd.pid ] && mpd --kill 2> $HOME/.cache/mpderror.$(date '+%y%m%d') &
 
 # Finally starts the X session with bspwm
-# It is important to note that many other programs are spawned by bspwm
 BSPCLOG=$(mktemp -q -t bspwm.XXXXXX)
 startx /usr/bin/bspwm -c $XDG_CONFIG_HOME/bspwm/bspwmrc 2> "$BSPCLOG" #$(mktemp -q -t bspwm.XXXXXX) & # /dev/null &
 
-# Start a URxvt deamon to be the parent of all urxvtc
-# By doing so the memory consumption of multiple spawned terminals is decreased
+# Start URxvt deamon, to decrese the mem consumption of multiple terminals
 urxvtd -q -o -f &
-#if [ $(pgrep urxvtd) ];then
-#	TERMINAL=urxvtc
-#	export TERMINAL
-#fi
 
