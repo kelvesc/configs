@@ -3,23 +3,44 @@
 " General
 syntax on
 filetype on
-set termguicolors
+"set autochdir                  "Vim chdir whenever a file is open
 set ruler
 set number
-set relativenumber
-set scrolloff=8
-set autoread            "Auto reads file when file changes
-set lazyredraw          "Don't redraw while processing macros
-set nocursorline        "Draws a line where the cursor is located
-set mouse=a             "Mouse behavior set to ALL
-set history=500
+set relativenumber              "Display line numebers relative to the current
+set scrolloff=8                 "Disctance from top/bottom edge when scrolling
+set autoread                    "Auto reads file when file changes
+set lazyredraw                  "Don't redraw while processing macros
+set mouse=a                     "Mouse behavior set to ALL
+set nocursorline                "Don't draws a line where the cursor is located
+set showcmd                     "Display incomplete command in the lower right
 set cmdheight=1
+set history=500
+set undolevels=200
+set wildmenu                    "Command-line completion enabled
+set wildmode=longest,list:full  "Show a list when completing
+set wildignore=*.swp,*.bak,*pyc,*.class "Ignore these when expanding blobs
+set completeopt=menuone,longest
+set complete+=k
+
+"NVim files (?)
+"set undofile
+"set undodir=~/.cache/nvim/undodir/
+"set backupdir=~/.cache/nvim/backupdir/
+"set directory=~/.cache/nvim/swapdir/
+"TODO: search for what exactly it does
+
+"Colors
+set t_Co=256
+set t_AB=^[[48;5;%dm
+set t_AF=^[[38;5;%dm
+colorscheme default
+"colorscheme elflord
+"set termguicolors
 set background=dark
-set wildmenu            "Completion wnabled
-"set wildmode=list:full  "Show a list when completing
-set wildmode=longest,list,full  "Show a list when completing
+highlight LineLr ctermbg=none guibg=none
 
 "Editing
+"set fsync
 set autoindent
 set smartindent
 set breakindent
@@ -28,18 +49,16 @@ set colorcolumn=81
 set encoding=utf-8
 set fileencoding=utf-8
 set termencoding=utf-8
+set iskeyword+=-        "Treat "-" as a character that may be in a word
 set clipboard+=unnamedplus
-
-"Cursor
-"set cursorline
-"set cursorcolumn
-"highlight CursorLine ctermbg=White cterm=bold guibg=#2B2B2B
-"highlight CursorColumn ctermbg=White cterm=bold guibg=#2B2B2B
+set backspace=indent,eol,start "Backspace behavior
+set whichwrap+=<,>,b
 
 set modelines=0
 set linebreak           "Break long lines to fit the terminal size
+set breakindent         "Wrapped lines will continue visually indented
 let &showbreak = "+ "   "Broken lines are denoted by
-set wrap
+set wrap                "Wrap long line
 
 "Tab behavior
 set smarttab
@@ -48,16 +67,13 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 
-set backspace=indent,eol,start "Backspace behavior
-set whichwrap+=<,>,h,l
-
 "Searching
+set magic               "For regular expressions
 set hlsearch            "Highlight search results
 set ignorecase          "Make the search case insensitive
 set smartcase           "Smart about cases when searching
 set incsearch           "Incremental search
 set synmaxcol=80        "Don't search in long lines
-set magic               "For regular expressions
 
 set showmatch           "Show matching { [ ( ) ] }
 set foldenable          "enable folding
@@ -75,23 +91,83 @@ augroup vimrc
 augroup END
 "Autosaves when focus is lost
 autocmd FocusLost * :wa
+"Check is file has changed since focus was lost
 autocmd FocusGained,BufEnter * checktime
+"Place the cursor in last line in the file it was before
 autocmd BufReadPost * :call ReturnLastPosition()
 "Remove trailing whitespaces on save
-autocmd BufReadPre * %s/\s\+$//e
+autocmd BufWritePre * %s/\s\+$//e
 "Center the text whenever entering insert mode
 autocmd InsertEnter * norm zz
+autocmd BufRead,BufNewFile * call MapOnTerm()
+
+"Autocommands for specific file types
+"TESTING: change filetype from dos to unix when opening
+autocmd BufRead dos set filetype=unix
+autocmd BufRead,BufNewFile * if &ft == 'dos' | setfiletype unix | endif
+"TESTING: set text file as text files
+autocmd BufRead,BufNewFile *.txt set filetype=text
 autocmd Filetype c,cpp call CSyntax()
 autocmd Filetype ml,sml call MLSyntax()
 autocmd Filetype erlang call ErlangSyntax()
 autocmd Filetype haskell,vhdl,ada call HSSyntax()
 autocmd Filetype sh,make,python call ScriptSyntax()
+"autocmd BufNewFile *.sh 0r ~/path/to/skeleton.sh
+
+"Autocommands for specific files
+"Resource NVim config
+let s:vimrc="~/.config/nvim/init.vim"
+autocmd BufWritePost s:vimrc nested source s:vimrc
 "Run xrdb when X* is updated
 autocmd BufWritePost *Xresources, *Xdefaults !xrdb %
 "Send SIGUSR1 whenever sxhkdrc is updated
 autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
 
 "Functions
+function! ReturnLastPosition() abort
+    if ! exists("g:leave_my_cursor_position_alone")
+        if line("'\"") > 0 && line("'\"") <= line("$")
+            execute "normal! g'\""
+        endif
+    endif
+endfunction
+
+function! FindHelp() abort
+    let s:w=fnameescape(expand('<cword>'))
+    if &filetype == 'vim'
+       execute "help " . s:w
+    else
+       execute "Man " . s:w
+   endif
+   unlet! s:w
+endfunction
+
+"TESTING
+function! MapOnTerm() abort
+"???: maybe change URxvt behavior on Alt-s
+"???: what is about with Ctrl-s in the terminal?
+"Binds Ctrl=s to save a file in URxvt and Alt-s in any other terminal emulator
+    if &term == "rxvt-unicode-256color"
+        noremap <C-s> <Esc>:w<CR>
+        inoremap <C-s> <Esc>:w<CR>
+    else
+        noremap <A-s> <Esc>:w<CR>
+        inoremap <A-s> <Esc>:w<CR>
+    endif
+endfunction
+
+function! Sort() abort
+"Select an area and type !sort to sort the lines selected
+endfunction
+
+function! SetColor(thm) abort
+    if &thm == default
+        colorscheme default
+    elseif &thm == elflord
+        colorscheme elflord
+    endif
+endfunction
+
 function! SpellCheck() abort
     setlocal spell spelllang=en_us
     setlocal noexpandtab
@@ -102,12 +178,8 @@ function! CancelSpellCheck() abort
     setlocal expandtab
 endfunction
 
-function! ReturnLastPosition() abort
-    if line("'\"") > 1 && line("'\"") <= line("$")
-        execute "normal! g'\""
-    endif
-endfunction
-
+"Languages Specific Functions
+"FIXME:: this is a mess.
 function! HSSyntax() abort
     map <silent> <F2> :s/^/--/<CR>:nohlsearch<CR>
     map <silent> <F4> :s/^--//<CR>:nohlsearch<CR>
@@ -135,11 +207,10 @@ function! MLSyntax() abort
     inoremap ,, =>
 endfunction
 
-"Test a given filetype:
-"if &filetype == 'vim'
-"elseif &filetype == 'haskell'
-
 "Abbreviations
+abbr ep ()
+abbr eb []
+abbr ec {}
 abbr todo TODO:
 abbr tood TODO:
 abbr fixm FIXME:
@@ -152,50 +223,105 @@ abbr ceas case
 "Mappings
 "let leader
 let mapleader = ","
-"Remaps F1 to ESC in all modes
-noremap <F1> <ESC>
-"Fix regex search by inserting \v at the begining
-nnoremap / /\v
-vnoremap / /\v
-"Map Shift-h to start of the line and Shift-l to lines end
-nnoremap H 0
-vnoremap H 0
-nnoremap L $
-vnoremap L $
-"Tab places the cursor at matching bracket
-nnoremap <tab> %
-vnoremap <tab> %
-"Easier access to ( and )
-inoremap ~  (
-inoremap ^ )
-"Ctrl-s saves the file, in any mode
-inoremap <A-s> <ESC>:w<CR>
-nnoremap <A-s> <ESC>:w<CR>
-vnoremap <A-s> <ESC>:w<CR>
+"Remaps jj to Esc, in INSERT MODE
+inoremap jj <Esc>
+
+"Open/Quit file editting
 "Maps qq to quit
-inoremap qq <ESC>:q<CR>
-nnoremap qq <ESC>:q<CR>
-vnoremap qq <ESC>:q<CR>
+inoremap qq <Esc>:q<CR>
+noremap qq <Esc>:q<CR>
+noremap qw <Esc>:q<CR>
 "QQ to force quit
-nnoremap QQ <ESC>:q!<CR>
-"Remaps jj to ESC, in INSERT MODE
-inoremap jj <ESC>
-"Deactivates highlighted search
-noremap <silent> <C-h> :nohlsearch<CR>
-"Strip all trailing white spaces in the current file
-nnoremap <leader>W :%s/\s/+$//<CR>:let @/=''<CR>
-"Reselect pasted text
-nnoremap <leader>v V`]
+nnoremap QQ <Esc>:q!<CR>
+"Faster navigating between files
+nnoremap <A-e> :e<space>
+"Save file map is done on MapOnTerm()
+":jumps, to see the jump list (useful for moving around files back and forth)
+
+"Navigation
+noremap n nzz
+noremap N Nzz
+" b and B, backwards word
+"Map Shift-h to start of the line and Shift-l to lines end
+noremap H 0
+noremap L $
+"More movement
+noremap J 10j
+noremap K 10k
+"Move in long lines
+noremap <C-j> gj
+noremap <C-k> gk
+"Tab places the cursor at matching bracket
+noremap <tab> %
 "Open a vertical/horizontal split and switch over to it
 nnoremap <leader>v <C-w>v<C-w>l
-nnoremap <leader>h <C-w>S<C-w>k
-"Reload nvim config file
-noremap <silent> <C-l> <Esc>:source ~/.config/nvim/init.vim<CR>:nohlsearch<CR>
+nnoremap <leader>h <C-w>s<C-w>k
+"Navigate between splits
+nnoremap <A-k> <C-w>k
+nnoremap <A-j> <C-w>j
+nnoremap <A-h> <C-w>h
+nnoremap <A-l> <C-w>l
+
+"TODO: lear terminal mode
+"Terminal Mode
+autocmd BufWinEnter,WinEnter term://* startinsert
+autocmd WinLeave term://* stopinsert
+tnoremap <Esc> <C-\><C-n><C-w><C-p>
+"tnoremap <Esc> <C-\><C-n>
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
+
+"Editing
+"Yank til the end of the line
+noremap Y y$
+"Strip all trailing white spaces in the current file
+nnoremap <leader>w :%s/\s/+$//<CR>:let @/=''<CR>
+"Surrond the word with (), [] or {}
+nnoremap <silent> <F2> i(<Esc>ea)
+nnoremap <silent> <F3> i[<Esc>ea]
+nnoremap <silent> <F4> i{<Esc>ea}
+"TODO: find apropriate bindings
+"\ is the default mapleader
+nnoremap <silent> \p i(<Esc>ea)
+nnoremap <silent> \b i[<Esc>ea]
+nnoremap <silent> \c i{<Esc>ea}
+"Easier access to (), [] and {}
+
+"Search/Replace
+" gu to lower gU to upper
+"Fix regex search by inserting \v at the begining
+noremap / /\v
+"Internally search the word under the cursor (gd for exact matches)
+noremap <leader>f /<C-r><C-w><CR>
+"External search the word under the cursor
+"\b<word>\b does the same as \<<word>\>
+"%:p:h/ denotes the dir as same as current file
+noremap <leader>e :grep '\b<cword>\b' %:p:h/*<CR>
+"Deactivates highlighted search
+"Highlighted search will returns when n or N is pressed
+noremap <silent> cf :nohlsearch<CR>
+"Substitute all occurrencs of the word under the cursor
+"The \< and \> ensure that only full words are matched
+"<C-r> insert the content of <C-w> the word under the cursor
+"Optionally(auto /g): nnoremap <leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
+nnoremap <leader>s :%s/\<<C-r><C-w>\>/
+"Open a help file or a man page for the word unde the cursor, when it exists
+noremap <silent> <A-m> :call FindHelp()<CR>
+"below, is the one line version of the above mapped function
+"noremap <expr> <A-m> (&filetype is# 'vim' ? (':help ' . fnameescape(expand('<cword>')) . "\n") : (':Man ' . fnameescape(expand('<cword>')) . "\n"))
+"???: reselect pasted text
+nnoremap <leader>p V`]
+
+"Folding
 "TODO: figure out how folding works
-nnoremap <F3> za
-nnoremap <Space> za
-vnoremap <Space> za
+" zf defines a fold
+noremap <F1> za
+noremap <Space> za
 inoremap <F3> <C-O>za
-"TODO: make some ifs and remaps to easily save, compile and test code
-"noremap <silent> <leader>c :s/^//<CR>:nohl<CR>
-"noremap <silent> <leader>u :s/^///e<CR>:nohl<CR>
+
+
+"Reload nvim config file
+noremap <silent> <A-r> <Esc>:source ~/.config/nvim/init.vim<CR>:nohlsearch<CR>
+
