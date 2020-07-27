@@ -15,30 +15,29 @@
 \\builtin export PS3=">>> "
 
 prompt () {
-    if [ $(id -u) -eq 0 ];
-    then
-    # red = 160; yellow = 190
+    if [ $(id -u) -eq 0 ]; then
+    # cyan = 50; red = 160; yellow = 190;
        tput setaf 160
     else
-    # cyan = 50;
        tput setaf 50
     fi
 
     #echo -en "${PWD//\/home/.} \U1557"
+    #FIXME: homeworks is cutted too
     echo "${PWD//\/home/.} \U1557" | tr "/" " " | \
-    awk '   {
-            if (NF == 2) printf "/%s %s", $1, $2
-            else if (NF == 3) printf "/%s/%s %s", $1, $2, $3
-            else printf "/%s/./%s %s", $1,$(NF-1),$(NF)} '
+    awk '{if (NF == 2) printf "/%s %s", $1, $2
+          else if (NF == 3) printf "/%s/%s %s", $1, $2, $3
+          else printf "/%s/./%s %s", $1,$(NF-1),$(NF)}'
     tput sgr0
 }
 
 # --Functions
+s () { sudo "$@"; } #Work, but don't accept aliases
 v () { nvim "$@"; }
 ss () { \\builtin source "$HOME/.config/.mkshrc" ; }
 st () { git status "$@"; }
 add () { git add "$@"; }
-gdf () { git diff; }
+gdf () { git diff "$@"; }
 cmt () { git commit -m "${@}"; }
 etc () { cd $(find /etc -maxdepth 2 -type d | fzy -l 20) ; }
 gf () { \\builtin cd $(find $HOME/projects  -maxdepth 2 -type d | fzy -l 20) ; }
@@ -49,15 +48,17 @@ qq () { [ -f "$HOME/.quicknotes" ] && nvim "$HOME/.quicknotes"; }
 # --System
 \\builtin alias !!='sudo mksh -c "$(\\builtin fc -ln -1)"'
 \\builtin alias ..='cd ..'
-\\builtin alias ls='ls -F --color='auto' --group-directories-first'
-\\builtin alias la='ls -A'
-\\builtin alias ll='ls -Ao'
-\\builtin alias lo='ls -AGgoh'
-\\builtin alias c='cat' 
-\\builtin alias cc='sudo cat'
+\\builtin alias l='ls -F --color=auto --group-directories-first'
+\\builtin alias la='l -A'
+\\builtin alias ll='l -Ao'
+\\builtin alias lo='l -AGgoh'
+\\builtin alias c='cat' cc='sudo cat'
+\\builtin alias grep='grep --color=auto'
 \\builtin alias vv='sudo nvim'
 \\builtin alias df='df -h' dt='df -hT'
 \\builtin alias lb='lsblk' lba='lsblk -alp' lbb='lsblk -lp'
+\\builtin alias b='acpi'
+\\builtin alias mt='sudo mount' umt='sudo umount'
 \\builtin alias pki='sudo xbps-install'
 \\builtin alias pkr='sudo xbps-remove'
 \\builtin alias pkq='xbps-query'

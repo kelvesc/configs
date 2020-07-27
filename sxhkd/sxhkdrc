@@ -7,8 +7,8 @@ ctrl + {_,shift +}Escape
 	bspc {wm -r,quit}
 
 # Close and kill
-{alt, ctrl} + {_,shift + }q
-	bspc node --{close,kill}
+{alt, ctrl} + {q, Delete}
+	bspc node --{close,kill,close,kill}
 
 # Alternate between the tiled and monocle layout
 super + m
@@ -119,63 +119,95 @@ super + ctrl + shift + space
 super + alt + {h,j,k,l}
 	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
-# Send the newest marked node to the newest preselected node
-super + y
-	bspc node newest.marked.local -n newest.!automatic.local
+# Contract a window by moving one of its side inward
+super + alt + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 
 # Move window to the next/prev desktop
 ctrl + alt + {h,l}
 	bspc node --to-desktop {prev,next} --focus
 
-# Contract a window by moving one of its side inward
-super + alt + shift + {h,j,k,l}
-	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
-
 # Move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+# Send the newest marked node to the newest preselected node
+super + y
+	bspc node newest.marked.local -n newest.!automatic.local
+
+###-----------------------------------------------------------------------------
+### RECEPTACLES
+###-----------------------------------------------------------------------------
 
 ###-----------------------------------------------------------------------------
 ### WM INDEPENDENT HOTKEYS
 ###-----------------------------------------------------------------------------
 
-{shift, ctrl, alt} + Return
-    {sakura, roxterm, urxvtc}
+###-----------------------------------------------------------------------------
+#TODO: F[1-12]
+###-----------------------------------------------------------------------------
+# Fs are special keys, so its easy to bind special events to them
+# I'm think of a logic for grouping those in a way they make sense
+# Maybe grouping them in 3 or 4 for a type of task, but that will depend on
+# listing all the things I want to be done on the desktop and then grouping them
+# Separation could be like:
+#       shift for modified actions, it is the first because of this
+#       alt for alternative actions, second because it is alternative; and
+#       ctrl, the last, for control actions.
+#
+# Maybe invert all this order fo the control functions to be in the top and the
+# others, more flexibe, at the end of the file as they tend to change more often
 
-crtl + shift + {ç, u}
-    {urxvtc, urxvt}
+# F[1-4]: desktop session
+# pidof is faster than pgrep
+# but pgrep -f "sleep 240" hits only the right one(s)
+ctrl + {F1, F2, F3, F4}
+    {kill -s10 $(pgrep -f "sleep 240"),\
+     kill -s12 $(pidof -x sleep),\
+     xdotool windowraise $(xdotool search --class polybar),\
+     xterm}
+
+# Open qued.sh
+shift + {F1, F2, F3, F4}
+    bspc desktop --focus any.!occupied && \
+    qued.sh {sxhkd, bspwm, mksh, nvim}
+
+alt + {F1, F2}
+    bspc desktop --focus any.!occupied && \
+    {lbry.sh gui, usbmount}
+
+# F[9-12]: ultilities
+# alt + {F9, F10, F11, F12}
+# shift + {F9, F10, F11, F12}
+# {F9, F10, F11, F12}
+
+# kill and restart sxhkd with a new configuration file
+# (re)start polybar
+ctrl + {F10, F11}
+    {hkreload,\
+     bar}
+
+# toggle polybar
+F10
+    polybar-msg cmd toggle
+
+#hide unhide windows
+alt + {F11 F12}
+    {droplet.sh -S, droplet.sh -H}
+
+F12
+    bspc node --flag hidden
+
+# -----------------------------------------------------------------------------
+
+{shift, ctrl, alt} + Return
+    {sakura, urxvtc, urxvt}
 
 # work at keypress or keyrelase
 shift + {@Escape, Escape}
-    {shut, shut}
+    {pmenu.sh, pmenu.sh} 2>&1 1> /dev/null
 
 super + w
-    bspc desktop --focus next.!occupied && \ 
+    bspc desktop --focus next.!occupied && \
     netsurf &
-
-# reason: pidof is faster than pgrep
-ctrl + {F1, F2, F3, F4} 
-    {kill -s10 $(pidof -x sleep),\
-    kill -s12 $(pidof -x sleep),\
-    urxvt,\
-    xterm}
-
-#TODO: merge little utilities, of a diffrent kind as the above, here too
-alt + {F1, F2}
-    {bspc desktop --focus next.!occupied && reader gui,
-    usbmount}
-
-# focus the next empty workspace open qed (and return to last workspace)
-shift + {F1, F2, F3, F4}
-    bspc desktop --focus any.!occupied && \
-    qed {hk, wm, sh, vi}
-    #bspc desktop --focus last.occupied
-
-# kill and restart sxhkd with a new configuration file
-F11
-    hkreload
-
-# toggle polybar
-F12 + {_, ctrl}
-    {polybar-msg cmd toggle, bar}
 

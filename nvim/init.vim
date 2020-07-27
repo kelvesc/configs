@@ -99,14 +99,17 @@ autocmd BufReadPost * :call ReturnLastPosition()
 autocmd BufWritePre * %s/\s\+$//e
 "Center the text whenever entering insert mode
 autocmd InsertEnter * norm zz
+
 autocmd BufRead,BufNewFile * call MapOnTerm()
 
 "Autocommands for specific file types
 "TESTING: change filetype from dos to unix when opening
+"DOES NOT WORK
 autocmd BufRead dos set filetype=unix
 autocmd BufRead,BufNewFile * if &ft == 'dos' | setfiletype unix | endif
 "TESTING: set text file as text files
 autocmd BufRead,BufNewFile *.txt set filetype=text
+
 autocmd Filetype c,cpp call CSyntax()
 autocmd Filetype ml,sml call MLSyntax()
 autocmd Filetype erlang call ErlangSyntax()
@@ -146,7 +149,7 @@ endfunction
 function! MapOnTerm() abort
 "???: maybe change URxvt behavior on Alt-s
 "???: what is about with Ctrl-s in the terminal?
-"Binds Ctrl=s to save a file in URxvt and Alt-s in any other terminal emulator
+"Binds Ctrl-s to save a file in URxvt and Alt-s in any other terminal emulator
     if &term == "rxvt-unicode-256color"
         noremap <C-s> <Esc>:w<CR>
         inoremap <C-s> <Esc>:w<CR>
@@ -221,7 +224,7 @@ abbr caes case
 abbr ceas case
 
 "Mappings
-"let leader
+"\ is the default mapleader
 let mapleader = ","
 "Remaps jj to Esc, in INSERT MODE
 inoremap jj <Esc>
@@ -276,21 +279,20 @@ tnoremap <A-l> <C-\><C-n><C-w>l
 "Editing
 "Yank til the end of the line
 noremap Y y$
+"Surrond the word with  (), [] or {}
+nnoremap <silent> <leader>' i"<Esc>ea"
+nnoremap <silent> <leader>t i(<Esc>ea)
+nnoremap <silent> <leader>b i[<Esc>ea]
+nnoremap <silent> <leader>c i{<Esc>ea}
+noremap < <<
+noremap > >>
 "Strip all trailing white spaces in the current file
 nnoremap <leader>w :%s/\s/+$//<CR>:let @/=''<CR>
-"Surrond the word with (), [] or {}
-nnoremap <silent> <F2> i(<Esc>ea)
-nnoremap <silent> <F3> i[<Esc>ea]
-nnoremap <silent> <F4> i{<Esc>ea}
-"TODO: find apropriate bindings
-"\ is the default mapleader
-nnoremap <silent> \p i(<Esc>ea)
-nnoremap <silent> \b i[<Esc>ea]
-nnoremap <silent> \c i{<Esc>ea}
-"Easier access to (), [] and {}
 
 "Search/Replace
-" gu to lower gU to upper
+"gu to lower gU to upper
+noremap <space>u vegU
+noremap <space>l vegu
 "Fix regex search by inserting \v at the begining
 noremap / /\v
 "Internally search the word under the cursor (gd for exact matches)
@@ -320,7 +322,6 @@ nnoremap <leader>p V`]
 noremap <F1> za
 noremap <Space> za
 inoremap <F3> <C-O>za
-
 
 "Reload nvim config file
 noremap <silent> <A-r> <Esc>:source ~/.config/nvim/init.vim<CR>:nohlsearch<CR>
