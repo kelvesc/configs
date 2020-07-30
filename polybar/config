@@ -30,14 +30,14 @@ compositing-overline =      over
 compositing-underline =     over
 compositing-border =        over
 
-format-foreground = 
-format-background = 
-format-overline = 
-format-underline = 
-format-spacing = 
-format-padding = 
-format-margin = 
-format-offset = 
+format-foreground =
+format-background =
+format-overline =
+format-underline =
+format-spacing =
+format-padding =
+format-margin =
+format-offset =
 
 pseudo-transparency = true
 
@@ -60,7 +60,7 @@ urgent =            ${colors.triadic-2}
 
 [bar/bar]
 monitor =           ${env:MONITOR:LVDS-1}
-monitor-fallback =  ${env:MONITOR:LVDS-1}
+monitor-fallback =  ${env:MONITOR:VGA-1}
 monitor-strict =    false
 override-redirect = false
 bottom =            false

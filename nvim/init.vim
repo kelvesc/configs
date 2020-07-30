@@ -17,7 +17,7 @@ set cmdheight=1
 set history=500
 set undolevels=200
 set wildmenu                    "Command-line completion enabled
-set wildmode=longest,list:full  "Show a list when completing
+set wildmode=list:full  "Show a list when completing
 set wildignore=*.swp,*.bak,*pyc,*.class "Ignore these when expanding blobs
 set completeopt=menuone,longest
 set complete+=k
@@ -44,8 +44,8 @@ highlight LineLr ctermbg=none guibg=none
 set autoindent
 set smartindent
 set breakindent
-set textwidth=80
-set colorcolumn=81
+set textwidth=90
+set colorcolumn=91
 set encoding=utf-8
 set fileencoding=utf-8
 set termencoding=utf-8
