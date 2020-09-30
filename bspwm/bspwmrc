@@ -48,14 +48,16 @@ bspc config initial_polarity        first_child
 #  Rules   #
 #++++++++++#
 bspc rule --remove "*"
-bspc rule --add netsurf \
-    desktop='^3' state=fullscreen
-bspc rule --add Zathura	\
-    desktop='IV' --one-shot follow=on focus=on state=fullscreen
 bspc rule --add Conky \
     sticky=on manage=off
 bspc rule --add Polybar \
     layer=above
+bspc rule --add netsurf \
+    desktop='^5' state=fullscreen
+bspc rule --add firefox \
+    desktop='^V' follow=on focus=on state=fullscreen
+bspc rule --add Zathura	\
+    desktop='^7' follow=on focus=on state=fullscreen
 
 exec $HOME/bin/init.sh &
 sleep 2
