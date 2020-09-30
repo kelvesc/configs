@@ -1,19 +1,23 @@
 
 set statusbar-h-padding 0
 set statusbar-v-padding 0
-set page-padding 1
+set page-padding 2
 
-map <A-f> toggle_fullscreen
-map <A-b> adjust_window best-fit
-map <A-w> adjust_window width
+map F2 recolor
+map F5 reload
+map F6 adjust_window width
+map F7 adjust_window best-fit
+map F8 toggle_fullscreen
+map F9 toggle_page_mode
 
-map u scroll half-up
-map d scroll half-down
-map P toggle_page_mode
-map r reload
-map R rotate
-map K zoom in
-map J zoom out
 map k scroll up
 map j scroll down
-map i recolor
+map K scroll half-up
+map J scroll half-down
+map l navigate next
+map h navigate previous
+
+map R rotate
+map = zoom in
+map - zoom out
+
