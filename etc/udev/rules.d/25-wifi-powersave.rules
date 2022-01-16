@@ -1,7 +1,0 @@
-# hint taken from:
-# ivanvojtko.blogspot.com/2016/04/hot-to-get-longer-battery-life-on-linux.html
-# this file should go under /etc/udev/rules.d/XX-wifi-powersave.rules
-# where XX represent an int between 00 and 99
-
-ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlan", RUN+="/usr/bin/iw dev %k set power_save on"
-
