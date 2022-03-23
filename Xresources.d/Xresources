@@ -1,0 +1,97 @@
+!#include "/home/feanor/.config/Xresources.d/themes/blue.dark"
+#include "/home/feanor/.config/Xresources.d/themes/chalk.dark"
+!#include "/home/feanor/.config/Xresources.d/themes/codeschool.dark"
+!#include "/home/feanor/.config/Xresources.d/themes/dracula.dark"
+!#include "/home/feanor/.config/Xresources.d/themes/eldorado.dark"
+!#include "/home/feanor/.config/Xresources.d/themes/google.dark"
+!#include "/home/feanor/.config/Xresources.d/themes/ocean.dark"
+!#include "/home/feanor/.config/Xresources.d/themes/sol.dark"
+!#include "/home/feanor/.config/Xresources.d/themes/solid.dark"
+
+Xft.dpi:           120
+Xft.rgba:          RGB
+!Xft.rgba:         NONE
+Xft.antialiasing:  FALSE
+Xft.autohint:      FALSE
+!Xft.hinting:      TRUE
+Xft.lcdfilter:     lcdlight
+
+!Xcursor.theme:
+Xcursor.size:  12
+
+
+!URxvt Specifics
+!Pixelsize is not equal size
+URxvt*cursorColor:  #1099FF
+!URXVT FONTS ARE BROKEN!
+!URxvt*font:           xft:Hasklig:Regular:size=14:antialias=true,\
+URxvt.font:            xft:Courier:Regular:size=14:antialias=true
+URxvt*letterSpace:     0
+Urxvt*lineSpace:       -2
+URxvt*dynamicColors:   ON
+!URxvt.border:         COLOR6
+URxvt.borderless:      TRUE
+URxvt.internalBorder:  3
+
+! URxvt Scroll Options
+URxvt*saveLines:    2000
+URxvt*scrollStyle:  plain
+! Do not scroll with output
+URxvt*scrollWithBuffer:         TRUE
+! Scroll in relation to bufer (Shift + PageUP/Down)
+URxvt*scrollTtyOutpt:           FALSE
+! Scroll back to the botton on keypress
+URxvt*scrollTtyKeypress:        TRUE
+! disble scrollback buffer when using a pager
+URxvt.secondaryScreen:  1
+URxvt.secondaryScroll:  0
+
+! Sakura Specifics
+sakura*letterSpace:  0
+sakura*lineSpace:    1
+
+! XTerm Specifics
+xterm*cursorColor:  #F95533
+xterm*font:         xft:Monoid  Regular:size=14:antialias=true
+xterm*utf8:         2
+
+! Global Settings
+*cursorUnderline:  FALSE
+*cursorBlink:      TRUE
+*foreground:       FOREGROUND
+*background:       BACKGROUND
+*cursourColor:     CURSORCOLOR
+*scrollBar:        FALSE
+
+! Black
+*color0:  COLOR0
+*color8:  COLOR8
+
+! Red
+*color1:  COLOR1
+*color9:  COLOR9
+
+! Green
+*color2:   COLOR2
+*color10:  COLOR10
+
+! Yellow
+*color3:   COLOR3
+*color11:  COLOR11
+
+! Blue
+*color4:   COLOR4
+*color12:  COLOR12
+
+! Magenta
+*color5:   COLOR5
+*color13:  COLOR13
+
+! Cyan
+*color6:   COLOR6
+*color14:  COLOR14
+
+! White
+*color7:   COLOR7
+*color15:  COLOR15
+

@@ -1,0 +1,14 @@
+clear lock
+keysym Menu = Super_L
+keycode 97 = slash question exclam
+keycode 108 = Alt_L
+keysym Caps_Lock = Escape
+keysym ccedilla = bar backslash
+keysym Print = Prior
+keysym Pause = Next
+keysym Insert = Return
+
+# keysym ISO_Level3_Shift = Alt_R
+# keycode 64 = Alt_R Meta_L
+# keysym dead_acute = bar backslash
+

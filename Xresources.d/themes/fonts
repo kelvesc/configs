@@ -1,0 +1,14 @@
+#define FONT1     xft:Monospace:
+#define FONT2     xft:DejavuSerif:
+#define FONT3     xft:Monospace:
+#define FONT4     xft:Monospace:
+#define FONT5     xft:Monospace:
+#define FONT6     xft:Monospace:
+
+#define FONTSIZE6 pixelsize=14
+#define FONTSIZE1 pixelsize=16
+#define FONTSIZE2 pixelsize=18
+#define FONTSIZE3 pixelsize=20
+#define FONTSIZE4 pixelsize=22
+#define FONTSIZE5 pixelsize=24
+
