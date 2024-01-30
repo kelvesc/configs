@@ -1,0 +1,8 @@
+
+# BASH SHELL OPTIONS
+shopt -s checkwinsize
+shopt -s autocd
+shopt -s cdspell
+shopt -s no_empty_cmd_completion
+shopt -s histappend
+

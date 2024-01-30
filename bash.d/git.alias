@@ -1,0 +1,7 @@
+
+alias gis='git status'
+alias cmt='git commit -m'
+
+alias gib='git branch'
+alias gpsh='git push'
+

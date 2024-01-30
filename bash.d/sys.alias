@@ -1,0 +1,37 @@
+# SYSTEM ALIASES
+
+alias df='df -h'
+alias updatedb='sudo updatedb'
+alias lb='lsblk -p'
+alias mt='sudo mount'
+alias umt='sudo umount'
+alias pwroff='sudo poweroff'
+alias reboot='sudo reboot'
+alias halt='sudo halt'
+alias zzz='sudo zzz'
+alias ZZZ='sudo ZZZ'
+
+alias aptps='ps aux | grep -i apt | grep -v grep'
+
+alias c='cat'
+alias l='ls --color=auto'
+alias la='ls --color=auto -a'
+alias ll='ls --color=auto -al'
+alias lo='ls --color=auto -alo'
+alias grep='grep --color=auto'
+alias wget='wget --hsts-file=/tmp/wget-hsts'
+alias sauce='source ~/.bashrc; echo "${HOME}/.bashrc loaded"'
+alias term='echo $TERM'
+alias sauce='source ~/.bashrc'
+alias conf='${EDITOR} ~/.bashrc'
+
+# depends on installed packages
+alias b='bat'
+alias xx='sudo hx'
+alias v='nvim'
+alias e='nvim'
+alias vv='sudo nvim'
+alias ee='sudo nvim'
+
+alias py='python3'
+alias python='python3'

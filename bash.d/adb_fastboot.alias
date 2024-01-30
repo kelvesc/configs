@@ -1,0 +1,37 @@
+
+alias wait-device='adb wait-for-device'
+# devices block
+alias devices='adb devices'
+alias fdevices='fastboot devices'
+
+# reboot bootloader block
+alias boot='adb reboot bootloader'
+alias fboot='fastboot reboot bootloader'
+
+alias adbr='adb reboot'
+alias fsr='fastboot reboot'
+
+GETPROP="adb shell getprop"
+GETVAR="fastboot getvar"
+
+# carrier block
+alias carrier='${GETPROP} ro.carrier'
+alias fcarrier='${GETVAR} ro.carrier'
+
+# fingerprint block
+alias fp='${GETPROP} ro.build.fingerprint'
+alias ffp='${GETVAR} ro.build.fingerprint'
+alias bugreport='adb bugreport'
+
+# bootmodes
+OEM_CONFIG="fastboot oem config"
+alias factory='${OEM_CONFIG} bootmode factory'
+alias bptools='${OEM_CONFIG} bootmode bp-tools'
+alias normal='${OEM_CONFIG} bootmode ""'
+
+# install apks
+alias adb_install='adb install --bypass-low-target-sdk-block'
+
+# OTA server selection
+alias cloud='adb shell am broadcast -a com.motorola.ccc.ota.Actions.CloudPicker'
+

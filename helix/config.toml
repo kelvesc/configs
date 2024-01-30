@@ -1,0 +1,32 @@
+theme = "onelight"
+
+[editor]
+line-number = "relative"
+scroll-lines = 5
+text-width = 90
+
+[editor.cursor-shape]
+select = "underline"
+
+[editor.statusline]
+mode.normal = "NORMAL"   
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+[keys.normal]
+# Navigation
+"ret" = ["move_line_down", "goto_first_nonwhitespace"] # Maps the enter key to move to start of next line
+D = "delete_char_backward"
+J = "move_line_down"
+K = "move_line_up"
+H = "goto_first_nonwhitespace"
+L = "goto_line_end"
+"$" = "goto_line_end"
+"G" = "goto_last_line"
+
+C-s = ":w" # Maps Ctrl-s to the typable command :w
+C-r = ":config-reload"
+C-q = ":q"
+
+[keys.insert]
+j = { j = "normal_mode"} # Maps `jj` to exit insert mode

@@ -1,0 +1,8 @@
+# VOID LINUX ALIASES
+
+# XBPS
+alias xinstall='sudo xbps-install'
+alias xquery='xbps-query'
+alias xreconf='sudo xbps-reconfigure'
+alias xremove='sudo xbps-remove'
+

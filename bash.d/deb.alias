@@ -1,0 +1,4 @@
+
+# change to another file
+alias apt-kill='sudo killall apt apt-get'
+

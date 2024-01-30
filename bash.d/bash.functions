@@ -1,0 +1,30 @@
+# FUNCTIONS
+
+#edit(){} # fast wait to edit bashrc and nvim.init
+clean(){
+        if [[ -f ${PSD}/Makefile ]]; then
+                make clean
+        else
+                echo "$(tput setaf 200)ERROR$(tput sgr0): No Makefile found"
+        fi
+}
+
+# TODO: make this function receive some argumments
+random_seed(){
+        tr -dc _A-Za-z0-9 < /dev/urandom | head -c${1:-7}
+        echo ""
+}
+
+# activate venv
+venv(){
+        local prev_pwd
+        prev_pwd='${PWD}'
+# TODO: use a find command to search in current directory for a venv dir
+        local local_venv
+        local_venv=$(find . -type d -name venv)
+# test for null local_venv
+        echo 'venv located in '${local_venv}
+        source ${local_venv}'/bin/activate'
+        echo 'venv activated.'
+
+}
