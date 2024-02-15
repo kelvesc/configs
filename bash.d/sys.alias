@@ -32,18 +32,25 @@ alias term='echo $TERM'
 
 alias sauce='source ~/.bashrc; echo "${HOME}/.bashrc loaded"'
 
-# depends on neovim installed on machine
-# TODO: check if neovim is installed (and maybe set env variable afterwards)
-alias v='nvim'
-alias e='nvim'
-alias vv='sudo nvim'
-alias ee='sudo nvim'
-alias conf='${EDITOR} ~/.bashrc'
+if [ -n $(which nvim) ]; then
+        alias v='nvim'
+        alias e='nvim'
+        alias vv='sudo nvim'
+        alias ee='sudo nvim'
+        alias conf='${EDITOR} ~/.bashrc'
+fi
 
-# depends on installed packages
-alias b='bat'
-alias xx='sudo hx'
+if [ -n $(which python3) ]; then
+        alias py='python3'
+        alias python='python3'
+fi
 
-alias py='python3'
-alias python='python3'
+if [ -n $(which bat) ]; then
+        alias b='bat'
+fi
+
+if [ -n $(which hx) ]; then
+        alias xx='sudo hx'
+fi
+
 
