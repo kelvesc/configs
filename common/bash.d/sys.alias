@@ -1,18 +1,16 @@
 # SYSTEM ALIASES
 
 alias df='df -h'
-alias updatedb='sudo updatedb'
-alias lb='lsblk -p'
-alias mt='sudo mount'
-alias umt='sudo umount'
-alias pwroff='sudo poweroff'
-alias reboot='sudo reboot'
-alias halt='sudo halt'
-alias zzz='sudo zzz'
-alias ZZZ='sudo ZZZ'
-
+alias fg1='fg 1'
+alias fg2='fg 2'
+alias fg3='fg 3'
 alias jl='jobs -l'
+alias lb='lsblk -p'
+alias mt='sudo mount' # TODO: do this without sudo
+alias umt='sudo umount' # TODO: same as above
 alias fastping='ping -c10 -i.3'
+alias updatedb='sudo updatedb'
+
 
 # interactive commands to move, copy and link
 alias mv='mv -i'
@@ -53,4 +51,10 @@ if [ -n $(which hx) ]; then
         alias xx='sudo hx'
 fi
 
+# Power
+alias pwroff='sudo poweroff'
+alias reboot='sudo reboot'
+alias halt='sudo halt'
+alias zzz='sudo zzz'
+alias ZZZ='sudo ZZZ'
 

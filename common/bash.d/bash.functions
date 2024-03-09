@@ -1,6 +1,16 @@
 # FUNCTIONS
 
+# Custom prompt
+set_ps1() {
+    echo ${PWD//${HOME}/\~} | sed 's:config:CONFIG:g'
+
+}
+
+#export PS1='\u$(set_ps1)\$  '
+#PS1='\033[01;32m\]\u\033[00m\]:$(set_ps1)/\W\$ '
+
 #edit(){} # fast wait to edit bashrc and nvim.init
+
 clean(){
         if [[ -f ${PSD}/Makefile ]]; then
                 make clean
@@ -9,9 +19,8 @@ clean(){
         fi
 }
 
-# TODO: make this function receive some argumments
 random_seed(){
-        tr -dc _A-Za-z0-9 < /dev/urandom | head -c${1:-7}
+        tr -dc _A-Za-z0-9 < /dev/urandom | head -c${1:-10}
         echo ""
 }
 
