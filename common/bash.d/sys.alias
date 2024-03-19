@@ -6,31 +6,30 @@ alias fg2='fg 2'
 alias fg3='fg 3'
 alias jl='jobs -l'
 alias lb='lsblk -p'
-alias mt='sudo mount' # TODO: do this without sudo
-alias umt='sudo umount' # TODO: same as above
 alias fastping='ping -c10 -i.3'
-alias updatedb='sudo updatedb'
-
 
 # interactive commands to move, copy and link
 alias mv='mv -i'
 alias cp='cp -i'
 alias ln='ln -i'
 
+# ls aliases
+alias l='ls --color=auto -CF'
+alias ll='ls --color=auto -AlF'
+alias la='ls -AF'
+alias lg='ls --color=auto -AFghs'
+
 alias aptps='ps aux | grep -i apt | grep -v grep'
 
 alias c='cat'
-alias l='ls --color=auto'
-alias la='ls --color=auto -a'
-alias ll='ls --color=auto -al'
-alias lo='ls --color=auto -alo'
 alias grep='grep --color=auto'
 alias wget='wget --hsts-file=/tmp/wget-hsts'
 alias term='echo $TERM'
 
+# TODO: make it look for ${term} before sourcing either bashrc or mkshrsc
 alias sauce='source ~/.bashrc; echo "${HOME}/.bashrc loaded"'
 
-if [ -n $(which nvim) ]; then
+if command -v nvim > /dev/null 2>&1; then
         alias v='nvim'
         alias e='nvim'
         alias vv='sudo nvim'
@@ -38,16 +37,16 @@ if [ -n $(which nvim) ]; then
         alias conf='${EDITOR} ~/.bashrc'
 fi
 
-if [ -n $(which python3) ]; then
+if command -v python3 > /dev/null 2>&1; then
         alias py='python3'
         alias python='python3'
 fi
 
-if [ -n $(which bat) ]; then
+if command -v bat > /dev/null 2>&1; then
         alias b='bat'
 fi
 
-if [ -n $(which hx) ]; then
+if command -v hx > /dev/null 2>&1; then
         alias xx='sudo hx'
 fi
 
