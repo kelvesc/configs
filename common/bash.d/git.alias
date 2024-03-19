@@ -1,7 +1,9 @@
+if command -v git > /dev/null 2>&1 ; then
 
-alias gis='git status'
-alias cmt='git commit -m'
-
-alias gib='git branch'
-alias gpsh='git push'
-
+        alias st='git status'
+        alias push='git push'
+        alias gis='git status'
+        alias gib='git branch'
+        alias gdiff='git diff ${1}'
+        alias commit='git commit -m '
+fi
