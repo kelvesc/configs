@@ -1,4 +1,0 @@
-export PATH="${HOME}/.local/bin/:${PATH}"
-export PROMPT_DIRTRIM=3
-
-export EDITOR="nvim"

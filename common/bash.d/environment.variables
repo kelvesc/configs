@@ -1,0 +1,33 @@
+export PROMPT_DIRTRIM=3
+
+if command -v nvim > /dev/null 2>&1; then
+        export EDITOR="nvim"
+        if [ -z "${NVIM_APPNAME}" ]; then
+                export NVIM_APPNAME="nvim"
+        fi
+fi
+
+# XGD config variables
+if [ -z "${XDG_CONFIG_HOME}" ]; then
+        export XDG_CONFIG_HOME="${HOME}/.config"
+fi
+
+if [ -z "${XDG_DATA_HOME}" ] ; then
+        export XDG_DATA_HOME="${HOME}/.local/share"
+fi
+
+# TODO: this whole block is a TODO
+#
+#if [ -d "${XDG_DATA_HOME}/Halide-17.0.1" ] ; then
+#        # TODO: if there are many versions of this then make it select the newer one
+#        export HALIDE_ROOT="${XDG_DATA_HOME}/Halide-17.0.1}"
+#fi
+
+# adding HALIDE_ROOT to LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HALIDE_ROOT/lib
+
+# exporting PATH
+# TODO: check for duplicates inside PATH, and remove them in case there are
+# do that before exporting
+export HALIDE_ROOT="${XDG_DATA_HOME}/Halide-17.0.1"
+export PATH="${HOME}/.local/bin:${HALIDE_ROOT}:${PATH}"
