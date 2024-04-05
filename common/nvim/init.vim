@@ -40,13 +40,15 @@ autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
 "automatically resource nvim config when it is saved
 autocmd BufWritePost *init.vim nested :source ~/\.config/nvim/init.vim
 
-augroup c_cpp_source_code
-        au BufWinEnter *.c,*.cpp abbr fi if
-        au BufWinEnter *.c,*.cpp abbr def def
-        au BufWinEnter *.c,*.cpp abbr inc inc
-        "au BufWinEnter *.c,*.cpp <buffer> inoremap #def #define
-        "au BufWinEnter *.c,*.cpp <buffer> inoremap #inc #include
+augroup CLikeSource
+        autocmd!
+        autocmd BufRead,BufNewFile,BufWinEnter *.c,*.cpp,*.h,*.hpp
+                                \ abbr fi if
+                                \ inoremap <buffer> def #define<Space>
+                                \ inoremap <buffer> inc #include<Space>
+                                \ inoremap <buffer> ifnd #ifndef<Space>
 augroup END
+
 "------------------------------------------------------------------
 "Functions
 "------------------------------------------------------------------
@@ -56,18 +58,6 @@ function! ReturnLastPosition() abort
             execute "normal! g'\""
         endif
     endif
-endfunction
-
-"OBS: this function is here only for demonstration porpouses
-"its is now done in a more simple away and with less lines
-function! FindHelp() abort
-    let s:w=fnameescape(expand('<cword>'))
-    if &filetype == 'vim'
-       execute "help " . s:w
-    else
-       execute "Man " . s:w
-   endif
-   unlet! s:w
 endfunction
 
 function! SpellCheck() abort
@@ -102,6 +92,9 @@ inoremap '' "
 let mapleader = "\<space>"
 
 inoremap jj <esc>
+
+"set file type to sh
+noremap <C-s> <esc>:set filetype=bash<cr>
 
 noremap <A-s> <esc>:w<cr>
 inoremap <A-s> <esc>:w<cr>
@@ -159,9 +152,9 @@ noremap <silent> gf :e <cfile><cr>
 "Faster navigating between files
 nnoremap <leader>e :e<space>
 nnoremap <A-e> :e<space>
-nnoremap <leader>b :b<space>
+nnoremap <leader>b :buffer<space>
+nnoremap <leader>j :jumps<space>
 
-":jumps, to see the jump list (useful for moving around files back and forth)
 " marking a line in the text is done by m{a-zA-Z}
 " and the marking location is accesse by '{a-zA-Z}
 
